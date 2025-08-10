@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Used to identify what nav page are we in. This will be used on the dropdown. -->
+    <meta name="navpage" content="work">
+
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="stylesheet" href="../static/styles/tutor_profile.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet Modal -->
+    <div class="modal fade bottom-sheet" id="addWorkExpBottomSheet" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-bottom-sheet pt-5">
+            <div class="modal-content modal-dialog-scrollable">
+                <div class="modal-header">
+                    <h6 class="modal-title">Add Work Experience</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pb-4">
+                    <!-- <div class="alert alert-secondary text-14 text-center mb-3">
+                        <i class="fas fa-circle-info"></i>
+                        Please Advertise <strong>honestly</strong>. Every claim you make must be factually correct, and
+                        you
+                        should
+                        be able to provide the documentary proof you claim to hold.
+                    </div> -->
+                    <div class="alert alert-secondary text-14 text-center mb-3">
+                        <i class="fas fa-circle-info"></i>
+                        Please Advertise <strong>honestly</strong>. Every claim you make must be factually correct.
+                    </div>
+                    <div class="alert alert-danger text-14 display-none" id="error-message">
+                        Error Message goes here
+                    </div>
+                    <form id="main-form">
+                        <div class="mb-3">
+                            <input type="text" id="input-company" placeholder="Company"
+                                class="form-control text-16 p-2" autocomplete="off" autocorrect="off" spellcheck="false"
+                                maxlength="32">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" id="input-role" placeholder="Role" class="form-control text-16 p-2"
+                                autocomplete="off" autocorrect="off" spellcheck="false" maxlength="32">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center w-100 mb-3">
+                            <div class="d-flex flex-column">
+                                <label for="select-from-year" class="text-14">Year From:</label>
+                                <select id="select-from-year"></select>
+                            </div>
+
+                            <div class="d-flex flex-column">
+                                <label for="select-to-year" class="text-14">Year To:</label>
+                                <select id="select-to-year"></select>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="formFile" class="form-label text-14">Upload documentary proof</label>
+                            <input class="form-control text-14" type="file" id="formFile">
+                        </div> -->
+
+                        <button id="btn-save" type="button" class="btn primary-button px-3 ms-auto">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ribbon-header d-flex align-items-center w-100 px-3">
+        <div class="back-button-container w-25 me-auto">
+            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back
+            </button>
+        </div>
+        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">My Profile</h5>
+        <div class="w-25 ms-auto spacer"></div>
+    </div>
+
+    <div class="container p-3">
+        <div class="d-flex align-items-center w-100">
+            <button class="btn"></button>
+        </div>
+        <div class="profile-header d-flex gap-4 mb-3">
+            <div class="profile-pic-wrapper">
+                <img id="dynamic-tutor-photo" src="../static/images/default_avatar.png">
+            </div>
+            <div class="profile-name-wrapper">
+                <h6 class="fw-600 mb-2">
+                    <span id="dynamic-tutor-username">Username</span>
+                    <span id="dynamic-tutor-section">
+                        <span class="text-muted opacity-40 mx-2">/</span>Work Experience
+                    </span>
+                </h6>
+                <p class="text-muted text-14" id="dynamic-content-description">Let others know what you're great at to build a standout profile.</p>
+            </div>
+        </div>
+        <div class="dropdown w-100 mb-4" id="navmenu">
+            <!-- DYNAMIC CONTENT GOES HERE -->
+        </div>
+        <h6 class="mb-1">Work Experience</h6>
+        <p class="mb-3 text-14">Highlight your career achievements, the roles you've held, and your experiences related to ASL.</p>
+
+        <div class="text-end w-100 mb-3">
+            <button id="btn-save" type="button"
+                class="btn btn-link px-0 box-shadow-0 ms-auto text-dark text-decoration-none text-14 fw-600"
+                data-bs-toggle="modal" data-bs-target="#addWorkExpBottomSheet">
+                <i class="fas fa-plus me-1"></i>Add Work History
+            </button>
+        </div>
+
+        <div id="documentary-collection">
+            <!-- DYNAMIC CONTENT GOES HERE -->
+        </div>
+
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.js" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/success_snackbar.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_ribbon_header.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_nav.js" defer></script>
+
+    <script src="../static/scripts/tutor_profile_workexp.js" defer></script>
+</body>
+
+</html>

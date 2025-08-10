@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/mdb9/mdb.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script"></script>
+    <script src="../static/libraries/mdb9/mdb.umd.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function () {
+                history.pushState(null, "", window.location.href);
+            };
+        });
+    </script>
+    
+</body>
+</html>

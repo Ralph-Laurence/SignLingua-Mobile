@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MediaPipe Hand Landmarks</title>
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+        <!-- Suppress favicon by using an empty data URI.
+         This should stop 404 favicon request -->
+        <link rel="icon" href="data:;base64,=">
+    </head>
+    <body>
+        <div id="resultFrame">
+            <div id="result-tile">
+                <p id="result-letter">A</p>
+                <img id="result-icon" src="letter-icons/a.png" width="64" height="64"/>
+            </div>
+        </div>
+        <div id="videoWrapper">
+            <video id="videoElement" autoplay></video>
+            <canvas id="canvasFrame"></canvas>
+            <div id="crosshair">
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+            </div>
+        </div>
+        <div id="scanned-letters-queue">
+            <!-- <div class="scanned-letters-queue-item">A</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">B</div>
+            <div class="scanned-letters-queue-item">C</div> -->
+        </div>
+        <p class="hint-tap-to-scan blinking-text d-none">Tap to scan</p>
+        <button id="enableBtn" class="control-button">
+            <img src="img/btn_icn_scan.png">
+        </button>
+        <button id="disableBtn" class="control-button d-none">
+            <img src="img/btn_icn_stop.png">
+        </button>
+        <p id="textBox"></p>
+        <div class="loading-overlay position-fixed w-100 h-100 end-0 top-0 bottom-0 start-0">
+            <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center px-5 gap-3">
+                <div class="progress w-100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                </div>
+                <h6 class="text-white m-0 loading-label">Preparing scanner...</h6>
+            </div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>

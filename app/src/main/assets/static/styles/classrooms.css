@@ -1,0 +1,94 @@
+body {
+    min-width: 380px;
+    height: 100%;
+}
+
+.banner {
+    min-height: 240px;
+    height: fit-content;
+    background-color: #8760DB;
+    background: linear-gradient(335deg, rgba(84, 79, 206, 1) 0%, rgba(98, 94, 219, 1) 50%, rgba(126, 124, 249, 1) 100%);
+}
+
+.banner-content .left-contents {
+    max-width: 65%;
+}
+.banner-content .left-contents .page-title {
+    font-weight: 600;
+}
+.banner-content .right-contents {
+    width: 25%;
+    max-width: 25%;
+}
+
+.banner .bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.banner .bg-overlay.color {
+    background-image: url('../images/bg_overlay_classrooms.png');
+}
+
+.banner .bg-overlay.color.tutor {
+    background-image: url('../images/bg_overlay_tutor_classrooms.png');
+}
+
+.banner .bg-overlay.visual {
+    background-image: url('../images/classrooms_isosceles_overlay.svg');
+    background-position: bottom !important;
+}
+
+.banner .fg-content {
+    z-index: 2;
+}
+
+.banner .toon {
+    height: auto;
+    width: 128px;
+}
+
+
+#btn-back {
+    box-shadow: none;
+}
+.banner .short-caption {
+    /* From https://css.glass */
+    background: rgba(216, 214, 243, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(216, 214, 243, 0.3);
+}
+
+.banner .short-caption.tutor {
+    /* From https://css.glass */
+    background: rgba(216, 214, 243, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(216, 214, 243, 0.3);
+}
+
+.classroom-item
+{
+    border-radius: 0.5rem;
+}
+
+.classroom-item .classroom-icon {
+    border-radius: 3rem;
+    width: 60px;
+    height: 60px;
+    border: 3px solid white;
+}

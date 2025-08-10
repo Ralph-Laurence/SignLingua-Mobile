@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".pages.PickedFromGalleryPreviewer">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Satisfied with the result? Tap 'Proceed' to finalize your changes, or tap 'Retry' to crop again."
+        android:textColor="@color/white"
+        android:padding="24dp"
+        android:layout_marginTop="20dp"
+        android:elevation="5dp"
+        android:textAlignment="center"
+        android:layout_above="@id/radial_preview"/>
+
+    <FrameLayout
+        android:elevation="5dp"
+        android:id="@+id/radial_preview"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_centerInParent="true"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/capture_previewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <psu.signlinguamobile.ui.customviews.CutoutOverlayView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <!-- CONTROL RIBBON -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/opacity_30"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="24dp">
+
+        <Button
+            android:id="@+id/btn_previewer_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_rounded_button"
+            android:drawableStart="@drawable/ic_camera_capture_retry"
+            android:drawablePadding="8dp"
+            android:text="Retry"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/btn_previewer_proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_rounded_button"
+            android:drawableEnd="@drawable/ic_camera_capture_proceed"
+            android:drawablePadding="8dp"
+            android:text="Proceed"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- UPON CAPTURE BLOCK INTERACTIONS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/overlay_on_process"
+        android:visibility="invisible"
+        android:elevation="20dp">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_camera_capture_processing"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:text="Processing image..."/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/app_logo_xl"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@drawable/app_logo_xl"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SignLinguaMobile"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".pages.PickedFromGalleryPreviewer"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".pages.CapturePhotoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.SelfieActivity" />
+        <activity
+            android:name=".pages.TutorProfileSkillsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfileWorkExpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfileGeneralActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfileEducationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfilePasswordsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfileCertificationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorProfileAccountActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorClassroomsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.MyLearnersActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.ScannerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SignLinguaMobile.Scanner" />
+        <activity
+            android:name=".pages.LearnerDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.LearnerProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.MyTutorsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.LearnerClassroomsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorDetailsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".pages.FindTutorsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.FindLearnersActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.LearnerHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".pages.LoginActivity"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SignLinguaMobile.NoActionBar" />
+    </application>
+
+</manifest>

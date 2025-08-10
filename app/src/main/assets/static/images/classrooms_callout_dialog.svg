@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="370"
+   height="200"
+   viewBox="0 0 97.895831 52.916666"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="classrooms_callout_dialog.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.65386545"
+     inkscape:cx="147.58388"
+     inkscape:cy="170.52438"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path5"
+       style="fill:#000000;fill-opacity:0.5;stroke-width:0.264583"
+       d="M 5.2916667,0 C 2.3600922,0 0,2.3600922 0,5.2916667 V 47.491675 c 0,2.931574 2.3600922,5.291666 5.2916667,5.291666 H 72.776436 c 2.931575,0 5.291667,-2.360092 5.291667,-5.291666 V 42.803072 L 97.895833,19.999813 78.068103,33.437236 V 5.2916667 C 78.068103,2.3600922 75.708011,0 72.776436,0 Z" />
+  </g>
+</svg>

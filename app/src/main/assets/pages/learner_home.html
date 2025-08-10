@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/page_home.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <div class="w-100 d-flex flex-column align-items-center pb-5 overflow-y-auto overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="banner learner w-100 p-4">
+            <div class="w-100 d-flex align-items-center text-white mt-3">
+                <h6 class="text-white m-0">
+                    <i class="fas fa-home me-2"></i>Home
+                </h6>
+                <button id="btn-logout" class="btn btn-sm btn-link text-white ms-auto text-decoration-none">
+                    Logout<i class="fa-solid fa-right-from-bracket ms-2"></i>
+                </button>
+            </div> 
+            <div class="banner-content w-100 d-flex text-white">
+                <div class="left-contents flex-fill">
+                    <h1 class="text-white page-title mt-3 mb-4">SignLingua Learner</h1>
+                    <h6 class="text-white mb-4">Discover lessons you'll love. Guaranteed.</h6>
+                <p class="fw-400 text-14 msw-justify me-3">With a vast network of experienced tutors and a thriving community of dedicated learners, we truly understand the art of language learning.</p>
+                </div>
+                <div class="right-contents ms-auto me-0 position-relative">
+                    <img src="../static/images/toon_art_learner.png" class="end-0 banner-toon-art position-absolute ms-3 mt-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title w-100 px-3 py-4">
+            <h6 class="mb-3">Your Activities</h6>
+            <p class="text-14">Quick access to your most important sections—just tap any option below and get started.</p>
+        </div>
+
+        <!-- NAVIGATION ITEMS -->
+         <div class="nav-items-container justify-content-center d-flex flex-wrap gap-3">
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_find.png" alt="icon" id="btn-nav-find-learners">
+                </div>
+                <div class="nav-item-label">Find Tutors</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_tutors.png" alt="icon" id="btn-nav-my-tutors">
+                </div>
+                <div class="nav-item-label">My Tutors</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_classrooms.png" alt="icon" id="btn-nav-classrooms">
+                </div>
+                <div class="nav-item-label">Classrooms</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_hire_requests.png" alt="icon" id="btn-nav-hire-reqs">
+                </div>
+                <div class="nav-item-label">Requests</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_scanner.png" alt="icon" id="btn-nav-scanner">
+                </div>
+                <div class="nav-item-label">ASL Scanner</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <div class="nav-item">
+                    <img src="../static/images/nav_icn_hire_account.png" alt="icon" id="btn-nav-account">
+                </div>
+                <div class="nav-item-label">Account</div>
+            </div>
+         </div>
+
+        <div class="section-title w-100 mt-4 p-4">
+            <h6 class="mb-3">Want to level up?</h6>
+            <div class="d-flex flex-row gap-3 align-items-center">
+                <div class="flex-grow-1">
+                    <p class="text-14 mb-0 msw-justify">
+                        Share your knowledge in American Sign Language with others. Register now to help others learn, grow, and
+                        communicate effectively within our supportive and inclusive community.
+                    </p>
+                </div>
+                <img class="d-block" src="../static/images/doodle_level_up.png" id="doodle_level_up">
+            </div>
+        </div>
+        
+        <div class="button-wrapper px-4 mb-5 w-100">
+            <button id="btn-become-tutor" type="button" class="btn primary-button w-100">
+                Become a tutor <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script"></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js"></script>
+    <script src="../static/scripts/learner_home.js"></script>
+</body>
+</html>

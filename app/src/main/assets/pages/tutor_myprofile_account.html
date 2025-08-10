@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Used to identify what nav page are we in. This will be used on the dropdown. -->
+    <meta name="navpage" content="acc">
+
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="stylesheet" href="../static/styles/tutor_profile.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="modal-choose-pic-option" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="../static/images/logo-sm.png" width="24" height="24">
+                        <h6 class="modal-title mb-0">Change Profile Photo</h6>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>How do you want to change your profile picture?</p>
+                    <ul class="list-group">
+                        <li class="list-group-item change-photo-option" id="change-photo-option-gallery">
+                            <div class="w-100 d-flex align-items-center gap-2">
+                                <img src="../static/images/option_choose_from_gallery.png" width="48" height="48">
+                                <p class="mb-0 text-dark">Choose from gallery</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item change-photo-option" id="change-photo-option-capture">
+                            <div class="w-100 d-flex align-items-center gap-2">
+                                <img src="../static/images/option_take_photo.png" width="48" height="48">
+                                <p class="mb-0 text-dark">Take a photo</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn secondary-button small-button px-3">
+                        Not Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ribbon-header d-flex align-items-center w-100 px-3">
+        <div class="back-button-container w-25 me-auto">
+            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back
+            </button>
+        </div>
+        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">My Profile</h5>
+        <div class="w-25 ms-auto spacer"></div>
+    </div>
+
+    <div class="container p-3">
+        <div class="d-flex align-items-center w-100">
+            <button class="btn"></button>
+        </div>
+        <div class="profile-header d-flex gap-4 mb-3">
+            <div class="profile-pic-wrapper">
+                <img id="dynamic-tutor-photo" src="../static/images/default_avatar.png">
+            </div>
+            <div class="profile-name-wrapper">
+                <h6 class="fw-600 mb-2">
+                    <span id="dynamic-tutor-username">Username</span>
+                    <span id="dynamic-tutor-section">
+                        <span class="text-muted opacity-40 mx-2">/</span>User Account
+                    </span>
+                </h6>
+                <p class="text-muted text-14" id="dynamic-content-description">Update your username and manage your account</p>
+            </div>
+        </div>
+        <div class="dropdown w-100 mb-4" id="navmenu">
+           <!-- DYNAMIC CONTENT GOES HERE -->
+        </div>
+
+        <h6 class="mb-2">Profile Picture</h6>
+        <p class="text-14 mb-4">Ensure your profile is always up-to-date with a recent photo.</p>
+        <div class="d-flex align-items-center w-100 gap-3 mb-4">
+            <div class="profile-pic-wrapper lg">
+                <img id="previewer-change-photo" src="../static/images/default_avatar.png">
+            </div>
+            <div class="flex-fill flex-wrap d-flex gap-2 align-items-center">
+                <button id="btn-set-photo" type="button" class="btn secondary-button small-button px-3"
+                    data-bs-toggle="modal" data-bs-target="#modal-choose-pic-option">
+                    Change
+                </button>
+                <button id="btn-remove-photo" type="button" class="btn danger-button small-button px-3">
+                    Remove
+                </button>
+            </div>
+        </div>
+
+        <h6 class="mb-2">Bio</h6>
+        <textarea class="form-control p-3 text-16 no-resize mb-2" id="input-bio" rows="6" placeholder="Write a short catchy note that serves as an opportunity for you to showcase your professional background, competencies, aspirations, and areas of expertise." maxlength="180" required=""></textarea>
+        <p class="text-14 w-100 text-end mb-4" id="bio-char-counter">0/0</p>
+
+        <h6 class="mb-2">Username</h6>
+        <div class="input-group mb-2">
+            <span class="input-group-text">
+                <i class="fas fa-at text-muted"></i>
+            </span>
+            <input type="text" id="input-username" class="form-control text-16 p-2" placeholder="Username" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="32">
+        </div>
+        <p class="text-14 mb-4">You can use your username or your email to log in. Just pick a username that's easy to remember.</p>
+        
+        <h6 class="mb-2">Email</h6>
+        <div class="input-group mb-2">
+            <span class="input-group-text">
+                <i class="fas fa-envelope text-muted"></i>
+            </span>
+            <input type="email" id="input-email" class="form-control text-16 p-2" placeholder="Email" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="128">
+        </div>
+        <p class="text-14 mb-4">This is where we'll reach you if we need to get in touch so make sure it's one you check regularly.</p>
+
+        <button id="btn-save" type="button" class="btn primary-button px-3 ms-auto">
+            Save Changes
+        </button>
+
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" id="jquery-script" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js"></script>
+    <script src="../static/scripts/components/success_snackbar.js" defer></script>
+    <script src="../static/scripts/components/notice-snackbar.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_ribbon_header.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_nav.js" defer></script>
+
+    <script src="../static/scripts/tutor_profile_account.js" defer></script>
+</body>
+</html>

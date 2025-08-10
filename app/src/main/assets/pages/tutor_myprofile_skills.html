@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Used to identify what nav page are we in. This will be used on the dropdown. -->
+    <meta name="navpage" content="skl">
+
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="stylesheet" href="../static/styles/tutor_profile.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <div class="modal fade" id="skillsPickerModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h6 class="modal-title">Pick your skills</h6>
+                </div>
+                <div class="modal-body overflow-hidden">
+                    <div class="alert text-14 p-2 border bg-light text-center">
+                        <i class="fas fa-circle-info me-1"></i>
+                        Scroll down to see more. You may select as many as needed, or uncheck a skill to remove it.
+                    </div>                      
+                    <div class="overflow-y-auto" style="height: 400px;">
+                        <table class="table table-bordered">
+                            <tbody id="skill-picker-body">
+                                <!-- DYNAMIC CONTENT GOES HERE -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer py-2">
+                    <button type="button" id="btn-cancel-skills-picker" class="btn secondary-button px-3 me-2" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" id="btn-ok-skills-picker" class="btn primary-button px-3" data-bs-dismiss="modal">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ribbon-header d-flex align-items-center w-100 px-3">
+        <div class="back-button-container w-25 me-auto">
+            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back
+            </button>
+        </div>
+        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">My Profile</h5>
+        <div class="w-25 ms-auto spacer"></div>
+    </div>
+
+    <div class="container px-3 pt-3 pb-5">
+        <div class="d-flex align-items-center w-100">
+            <button class="btn"></button>
+        </div>
+        <div class="profile-header d-flex gap-4 mb-3">
+            <div class="profile-pic-wrapper">
+                <img id="dynamic-tutor-photo" src="../static/images/default_avatar.png">
+            </div>
+            <div class="profile-name-wrapper">
+                <h6 class="fw-600 mb-2">
+                    <span id="dynamic-tutor-username">Username</span>
+                    <span id="dynamic-tutor-section">
+                        <span class="text-muted opacity-40 mx-2">/</span>Skills & Accessibilty
+                    </span>
+                </h6>
+                <p class="text-muted text-14" id="dynamic-content-description">Let others know what you're great at to
+                    build a standout profile.</p>
+            </div>
+        </div>
+        <div class="dropdown w-100 mb-4" id="navmenu">
+            <!-- DYNAMIC CONTENT GOES HERE -->
+        </div>
+        <h6 class="mb-1">Accessibilty</h6>
+        <p class="mb-3 text-14 msw-justify">
+            We are dedicated to promoting inclusivity and ensuring that everyone feels welcome and valued, regardless of
+            any impairments or disabilities. We encourage you to share your preferred way of communicating from the
+            options below—this helps us better understand and identify your needs.
+        </p>
+        <div class="mb-4">
+            <div class="form-check">
+                <input class="form-check-input disability-option" value="0" type="radio" name="disability" id="disability-0" checked="">
+                <label class="form-check-label text-14 text-secondary" for="disability-0">
+                    No Impairments
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input disability-option" value="1" type="radio" name="disability" id="disability-1">
+                <label class="form-check-label text-14 text-secondary" for="disability-1">
+                    Deaf or Hard of Hearing
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input disability-option" value="2" type="radio" name="disability" id="disability-2">
+                <label class="form-check-label text-14 text-secondary" for="disability-2">
+                    Non-Verbal
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input disability-option" value="3" type="radio" name="disability" id="disability-3">
+                <label class="form-check-label text-14 text-secondary" for="disability-3">
+                    Deaf and Non-Verbal
+                </label>
+            </div>
+        </div>
+
+        <hr class="opacity-20">
+        <h6 class="mb-1">Skills</h6>
+        <p class="mb-3 text-14 msw-justify">Showcase your capabilities and strengths. You may add more skills as
+            necessary.</p>
+        <div class="d-flex align-items-center gap-3 flex-wrap mb-3" id="skills-container"></div>
+        <div class="text-end w-100 mb-4">
+            <button id="btn-modify-skill" type="button"
+                class="btn btn-link px-0 box-shadow-0 ms-auto text-dark text-decoration-none text-14 fw-600"
+                data-bs-toggle="modal" data-bs-target="#skillsPickerModal">
+                <span class="button-label">
+                    <i class="fas fa-plus me-1"></i>
+                    Add Skill
+                </span>
+            </button>
+        </div>
+        <div class="text-end w-100">
+            <button id="btn-save" type="button" class="btn primary-button px-3 ms-auto">
+                Save Profile
+            </button>
+        </div>
+
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.js" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/success_snackbar.js" defer></script>
+    <script src="../static/scripts/components/notice-snackbar.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_ribbon_header.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_nav.js" defer></script>
+
+    <script src="../static/scripts/tutor_profile_skills.js" defer></script>
+</body>
+
+</html>

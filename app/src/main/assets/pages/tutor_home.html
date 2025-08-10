@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/page_home.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <div class="w-100 d-flex flex-column align-items-center pb-5 overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="banner tutor w-100 p-4">
+            <div class="w-100 d-flex align-items-center text-white mt-3">
+                <h6 class="text-white m-0">
+                    <i class="fas fa-home me-2"></i>Home
+                </h6>
+                <button id="btn-logout" class="btn btn-sm btn-link text-white ms-auto text-decoration-none">
+                    Logout<i class="fa-solid fa-right-from-bracket ms-2"></i>
+                </button>
+            </div> 
+            <div class="banner-content w-100 d-flex text-white">
+                <div class="left-contents flex-fill">
+                    <h1 class="text-white page-title mt-3 mb-4">SignLingua Tutor</h1>
+                    <h6 class="text-white mb-4">Teach anytime, anywhere. Be your own boss!</h6>
+                    <p class="fw-400 text-14 msw-justify me-3">Decide when and how many hours you want to teach. No minimum time commitment or fixed schedule.</p>
+                </div>
+                <div class="right-contents ms-auto me-0 position-relative">
+                    <img src="../static/images/toon_art_tutor.png" class="end-0 banner-toon-art position-absolute">
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title w-100 px-3 pt-4 pb-2">
+            <h6 class="mb-3 fw-600">Your Activities</h6>
+            <p class="text-14">Quick access to your most important sections—just tap any option below and get started.</p>
+        </div>
+
+        <!-- NAVIGATION ITEMS -->
+         <div class="nav-items-container justify-content-center d-flex flex-wrap gap-3">
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_find.png" alt="icon" id="btn-nav-find-learners">
+                </button>
+                <div class="nav-item-label">Find Learners</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_learners.png" alt="icon" id="btn-nav-my-learners">
+                </button>
+                <div class="nav-item-label">My Learners</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_classrooms.png" alt="icon" id="btn-nav-classrooms">
+                </button>
+                <div class="nav-item-label">Classrooms</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_hire_requests.png" alt="icon" id="btn-nav-hire-reqs">
+                </button>
+                <div class="nav-item-label">Hire Requests</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_scanner.png" alt="icon" id="btn-nav-scanner">
+                </button>
+                <div class="nav-item-label">ASL Scanner</div>
+            </div>
+            <div class="nav-item-wrapper">
+                <button type="button" class="btn nav-item">
+                    <img src="../static/images/nav_icn_hire_account.png" alt="icon" id="btn-nav-account">
+                </button>
+                <div class="nav-item-label">Account</div>
+            </div>
+         </div>
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script"></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js"></script>
+    <script src="../static/scripts/tutor_home.js"></script>
+</body>
+</html>

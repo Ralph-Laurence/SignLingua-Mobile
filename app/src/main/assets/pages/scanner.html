@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="currentpage" content="">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/scanner.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <div class="w-100 h-100 d-flex flex-column align-items-center overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="upper-ribbon w-100 flex-0-1-auto">
+            <div class="banner w-100 position-relative">
+                <div class="bg-overlay"></div>
+                <div class="w-100 px-4 py-3 fg-content position-absolute start-0 end-0">
+                    
+                    <div class="d-flex w-100 mb-3">
+                        <div class="ms-0 me-auto w-30">
+                            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                                <i class="fa-solid fa-arrow-left me-2"></i>Back
+                            </button>
+                        </div>
+                    
+                        <div class="flex-fill flex-center">
+                            <h5 class="text-white page-title w-100 text-center mb-0">
+                                <i class="fas fa-qrcode me-2"></i>
+                                Scanner
+                            </h5>
+                        </div>
+                    
+                        <div class="me-0 ms-auto w-30"></div>
+                    </div>
+                    <div class="w-100 text-14 glass-bg text-white p-3">
+                        <h6 class="text-white"><i class="fas fa-bolt-lightning me-1"></i> Experimental Feature</h6>
+                        The mobile scanner is still in development, and we're constantly improving performance. Try our high-performance web version for a faster experience on desktop!
+                    </div>
+                </div>
+                
+            </div>
+            <div class="section-title w-100 p-4 pb-2">
+                <h5 class="fw-600 mb-3">Aim... Steady... Scan!</h5>
+                <p class="text-14">Try the sign language scanner—fast, accurate, and completely FREE to use!</p>
+                <div class="d-flex gap-3">
+                    <div class="w-40">
+                        <img src="../static/images/img_scanner_page_ai.png" class="w-100 h-auto">
+                    </div>
+                    <div class="w-60">
+                        <h6>Powered by AI</h6>
+                        <p class="text-14 msw-justify">AI-driven recognition for fast and accurate sign detection.<br><br>Trained on large datasets of diverse hand signs, it adapts to various environments—ensuring reliable recognition even with obstructions like complex backgrounds or partial visibility.</p>
+                    </div>  
+                </div>
+                <h6>Try Now!</h6>
+                <p class="text-14">Tap the ( <i class="fas fa-qrcode"></i> ) to launch the scanner</p>
+                <div class="alert alert-secondary text-14">
+                    Please make sure to allow camera permissions
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCAN BUTTON -->
+    <button type="button"
+        class="btn btn-danger fab position-fixed end-0 bottom-0 shadow m-4 z-500">
+        <i class="fas fa-qrcode"></i>
+    </button>
+
+    <!-- ACTUAL SCANNER -->
+    <div class="scanner-overlay bg-white p-3 position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-1000">
+        <div id="videoWrapper" class="flex-center border">
+            <video id="videoElement" autoplay=""></video>
+            <canvas id="canvasFrame" width="640" height="480" style="width: 100%; height: auto;"></canvas>
+            <div class="resultTile" id="scanned-letter-tile" hidden="">
+                <div class="flex-column d-flex">
+                    <img id="result-tile-icon" src="../../assets/img/letter-icons/v.png" width="48" height="48">
+                    <h6 class="mb-0">V</h6>
+                </div>
+            </div>
+            <div id="crosshair" hidden="">
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+            </div>
+            <div id="notice">
+                <i class="fas fa-info-circle me-1"></i>
+                Make sure to allow camera permission
+            </div>
+            <div id="settings-bar" class="flex-column d-flex p-2 rounded-2rem gap-2">
+                <button type="button" id="btn-setting-toggle-xhair"
+                    class="sl-btn font-semibold rounded btn btn-sm btn-secondary sign-lingua-gray-button flex-center"
+                    data-bs-toggle="tooltip" title="" data-bs-placement="right" data-bs-offset="0,20" only-icon="only-icon"
+                    data-bs-original-title="Toggle Crosshair">
+        
+                    <i class="fas fa-expand"></i>
+        
+                </button>
+                <button type="button" id="btn-setting-toggle-read"
+                    class="sl-btn font-semibold rounded btn btn-sm btn-secondary sign-lingua-gray-button flex-center"
+                    data-bs-toggle="tooltip" title="" data-bs-placement="right" data-bs-offset="0,20" only-icon="only-icon"
+                    data-bs-original-title="Toggle Read Aloud">
+        
+                    <i class="fas fa-volume-high"></i>
+        
+                </button>
+                <button type="button" id="btn-setting-change-voice"
+                    class="sl-btn font-semibold rounded btn btn-sm btn-secondary sign-lingua-gray-button flex-center"
+                    data-bs-toggle="tooltip" title="" data-bs-placement="right" data-bs-offset="0,20" only-icon="only-icon"
+                    data-bs-original-title="Change Read Aloud Voice">
+        
+                    <i class="fas fa-venus"></i>
+        
+                </button>
+            </div>
+            <button class="btn btn-sm rounded-circle camera-button" id="captureButton">
+                <i class="fas fa-video"></i>
+            </button>
+            <button class="btn btn-sm rounded-circle camera-button" id="stopButton" hidden="">
+                <i class="fas fa-stop"></i>
+            </button>
+        </div>
+    </div>  
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/scanner.js" defer></script>
+</body>
+</html>

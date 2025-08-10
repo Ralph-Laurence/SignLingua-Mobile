@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="currentpage" content="">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="stylesheet" href="../static/styles/profile_details.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet Modal # Edit details -->
+    <div class="modal fade bottom-sheet" id="editProfileBottomSheet" tabindex="-1"
+        data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="editProfileBottomSheetLabel" aria-hidden="true">
+        <div class="modal-dialog modal-bottom-sheet pt-5">
+            <div class="modal-content modal-dialog-scrollable">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="editProfileBottomSheetLabel">Edit Profile Details</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pb-4">
+                    <!-- Content goes here -->
+                    <p id="dynamic-about-full">
+                        <i>Tutor didn't provide details about themself.</i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM SHEETS -->
+
+    <div class="w-100 h-100 d-flex flex-column align-items-center overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="upper-ribbon w-100 flex-0-1-auto">
+            <div class="banner myprofile w-100 position-relative">
+                <div class="bg-overlay myprofile color"></div>
+                <div class="bg-overlay visual"></div>
+                <div class="w-100 px-4 py-3 fg-content position-absolute start-0 end-0">
+                    
+                    <div class="d-flex align-items-center w-100 mb-3">
+                        <div class="back-button-container w-25 me-auto">
+                            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                                <i class="fa-solid fa-arrow-left me-2"></i>Back
+                            </button>
+                        </div>
+                        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">Profile</h5>
+                        <div class="w-25 ms-auto text-end spacer">
+                            <button id="btn-change-photo" class="btn btn-sm text-white text-decoration-none p-3 text-center">
+                                <i class="fa-solid fa-camera"></i>
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="profile-wrapper mx-auto position-relative">
+                        <div class="profile-pic-wrapper overflow-hidden shadow rounded-circle bg-white">
+                            <img src="../static/images/default_avatar.png" id="dynamic-photo" class="w-100 h-100">
+                        </div>
+                        <div id="profile-disability-badge-wrapper" class="disability-deafmute" style="display: none;">
+                            <img src="../static/images/badge_deafmute_s.png" class="w-100 h-100" id="dynamic-disability-badge">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content w-100 px-4 pb-5">
+            <h5 class="fw-600 w-100 px-4 text-center mb-1" id="dynamic-name">My Name</h5>
+            <p id="dynamic-username" class="w-100 mb-2 text-center">@username</p>
+            <p class="text-14 text-center text-muted w-100" id="dynamic-bio"></p>
+            <!-- <div class="control-buttons-wrapper flex-center gap-3 py-3">
+                <button type="button" class="btn primary-button" id="btn-hire-tutor" data-bs-dismiss="modal">
+                    <i class="fas fa-user-plus"></i>Hire
+                </button>
+                <button type="button" class="btn primary-button" id="btn-chat-tutor" data-bs-dismiss="modal">
+                    <i class="fas fa-message"></i>Chat
+                </button>
+            </div> -->
+            <!--
+            ========================================
+                        QUICK STATISTICS
+            ========================================
+            -->
+            <div class="tutor-statistics w-100 d-flex align-items-center justify-content-between my-3">
+                <div class="cell text-center flex-grow-1">
+                    <p id="dynamic-date-joined" class="mb-2 mt-1 text-color-gray-900 text-14">
+                        dd MMM YYYY
+                    </p>
+                    <p class="text-14">Joined</p>
+                </div>
+                <div class="cell text-center flex-grow-1 border-start border-end">
+                    <p id="dynamic-tutor-count" class="mb-1 text-20 text-color-gray-900">0</p>
+                    <p class="text-14">Tutors</p>
+                </div>
+                <div class="cell text-center flex-grow-1">
+                    <p id="dynamic-classroom-count" class="mb-1 text-20 text-color-gray-900">0</p>
+                    <p class="text-14">Classrooms</p>
+                </div>
+            </div>
+            <div class="w-100 d-flex align-items-center mb-2">
+                <h6 class="m-0">Bio</h6>
+                <button class="btn btn-link btn-sm ms-auto" id="btn-open-about-tutor"
+                    data-bs-toggle="modal" data-bs-target="#editProfileBottomSheet">
+                    <i class="fas fa-arrow-right text-dark text-20"></i>
+                </button>
+            </div>
+            <div id="dynamic-about" class="text-16 fw-400 text-muted mb-3">
+                <i>Add short notes about yourself.</i>
+            </div>
+            <!--
+            ========================================
+                       CONTACT INFORMATION
+            ========================================
+            -->
+            <div class="border rounded p-3 contact-information-container px-4 mb-3">
+                <div class="d-flex gap-2 mb-3">
+                    <div class="contact-info-icon me-2">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="flex-fill overflow-hidden">
+                        <h6 class="text-truncate">Contact No.</h6>
+                        <div class="text-14 align-items-center d-flex gap-2">
+                            <img src="../static/images/icn_contact_ph.png" class="d-inline-block valign-middle ph-flag">
+                            <span id="dynamic-contact-no">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mb-3">
+                    <div class="contact-info-icon me-2">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="flex-fill overflow-hidden">
+                        <h6 class="text-truncate">Email</h6>
+                        <small id="dynamic-email" class="text-wrap text-14 d-block">N/A</small>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <div class="contact-info-icon me-2">
+                        <i class="fas fa-location"></i>
+                    </div>
+                    <div class="flex-fill overflow-hidden">
+                        <h6 class="text-truncate">Location</h6>
+                        <small id="dynamic-address" class="text-wrap text-14 d-block">N/A</small>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 mb-2">
+                <h6 class="mb-3">Help<i class="fas fa-circle-question ms-1 opacity-80"></i></h6>
+                <ul class="list-unstyled px-0 text-14">
+                    <li class="mb-1">1. To change your profile picture, tap <i class="fas fa-camera"></i> on the upper right corner of your screen.</li>
+                    <li class="mb-1">2. To set a bio, tap on the <i class="fas fa-arrow-right"></i>.</li>
+                    <li>3. Edit your profile details by tapping on the pink action button ( <i class="fas fa-pen"></i> ).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <button type="button"
+        class="btn btn-danger fab position-fixed end-0 bottom-0 shadow m-4 z-500"
+        data-bs-toggle="modal" data-bs-target="#editProfileBottomSheet">
+        <i class="fas fa-pen"></i>
+    </button>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/scripts/star_ratings_control.js" defer></script>
+    <script src="../static/scripts/learner_profile.js" defer></script>
+
+</body>
+</html>

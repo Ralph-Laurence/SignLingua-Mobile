@@ -1,0 +1,95 @@
+.ribbon-header {
+    background-image: url('../images/bg_overlay_my_profile.png');
+    background: #ae72d6;
+    background: linear-gradient(335deg,rgba(174, 114, 214, 1) 0%, rgba(252, 98, 98, 1) 50%, rgba(247, 199, 131, 1) 100%);
+    padding-top: 1rem;
+}
+
+.profile-pic-wrapper {
+    width: 60px;
+    height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    overflow: hidden;
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdfdfd;
+    border: 1px solid #EDF0F8;
+}
+
+.profile-pic-wrapper.lg {
+    width:      90px !important;
+    height:     90px !important;
+    max-width:  90px !important;
+    max-height: 90px !important;
+    min-width:  90px !important;
+    min-height: 90px !important;
+}
+
+.profile-pic-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+
+.dropdown-item.active {
+    background-color: var(--primary700) !important;
+}
+
+#btn-back {
+    box-shadow: none;
+}
+
+#locked-input-about-container {
+    position: relative;
+    max-height: 5em;
+    /* ~3 lines if line-height is 1.5em */
+    overflow: hidden;
+}
+#locked-input-about {
+    display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  background-color: #E9ECEF;
+}
+
+#aboutTutorBottomSheet .modal-body {
+    padding-bottom: 400px;
+}
+
+#about-me {
+    min-height: 300px;
+    height: fit-content;
+    font-size: 14px;
+}
+
+.alert-warning {
+    color: #554018 !important;
+}
+
+.container {
+    transition: padding-bottom 300ms ease;
+}
+
+#locked-input-about::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    pointer-events: none;
+}
+
+.list-group-item.change-photo-option {
+    background-color: white;
+    cursor: none;
+}
+.list-group-item.change-photo-option:hover {
+    background-color: #e9ecef;
+}

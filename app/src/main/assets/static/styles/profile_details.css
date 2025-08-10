@@ -1,0 +1,166 @@
+body {
+    min-width: 380px;
+    height: 100%;
+}
+
+.banner {
+    min-height: 200px;
+    height: 250px;
+    background: #FC677A;
+    background: linear-gradient(335deg, rgba(252, 103, 122, 1) 0%, rgba(255, 136, 108, 1) 50%, rgba(249, 180, 99, 1) 100%);
+}
+
+.banner.myprofile {
+    background: #ae72d6;
+background: linear-gradient(335deg,rgba(174, 114, 214, 1) 0%, rgba(252, 98, 98, 1) 50%, rgba(247, 199, 131, 1) 100%);
+}
+
+.banner-content .left-contents {
+    max-width: 65%;
+}
+.banner-content .left-contents .page-title {
+    font-weight: 600;
+}
+.banner-content .right-contents {
+    width: 25%;
+    max-width: 25%;
+}
+
+.banner .bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.banner .bg-overlay.color {
+    background-image: url('../images/bg_overlay_show_tutor.png');
+}
+.banner .bg-overlay.myprofile.color {
+    background-image: url('../images/bg_overlay_my_profile.png');
+}
+
+.banner .bg-overlay.visual {
+    background-image: url('../images/user_details_curve_overlay.svg');
+}
+
+.banner .fg-content {
+    z-index: 2;
+}
+
+#btn-back {
+    box-shadow: none;
+}
+
+.profile-wrapper {
+    position: relative; /* Ensures the badge is positioned relative to this wrapper */
+    width: 128px; /* Matches the profile picture size */
+    height: 128px; /* Matches the profile picture size */
+}
+
+.profile-pic-wrapper {
+    height: 100%; /* Full height of the wrapper */
+    width: 100%; /* Full width of the wrapper */
+    overflow: hidden; /* Keeps the image contained */
+    border: 5px solid white; /* Adds a white border */
+    border-radius: 50%; /* Ensures the profile picture is circular */
+}
+
+#profile-disability-badge-wrapper
+{
+    overflow: hidden;
+    position: absolute;
+    bottom: 0; /* Aligns the badge to the bottom */
+    right: 0; /* Aligns the badge to the right */
+    height: 42px; /* Size of the badge */
+    width: 42px; /* Size of the badge */
+    background-color: #ffffff; /* Green color for online status */
+    border-radius: 50%; /* Makes it a circle */
+    z-index: 1; /* Ensures the badge is above the profile picture */
+    padding: 0.2rem;
+}
+
+#profile-disability-badge-wrapper.disability-deaf {
+    border: 3px solid #feb16a;
+}
+#profile-disability-badge-wrapper.disability-mute {
+    border: 3px solid #544FCE;
+}
+#profile-disability-badge-wrapper.disability-both {
+    border: 3px solid #007E7E;
+}
+
+#dynamic-tutor-disability-badge {
+    width: 100%;
+    height: 100%;
+}
+
+#dynamic-tutor-username { color: #f3596e; }
+
+.control-buttons-wrapper .btn {
+    min-height: 40px !important;
+    max-height: 40px !important;
+}
+
+#dynamic-tutor-about {
+    display: -webkit-box; /* Enables the flex-like box model */
+    -webkit-line-clamp: 3; /* Limits the text to 3 lines */
+    -webkit-box-orient: vertical; /* Specifies vertical orientation for the box */
+    overflow: hidden; /* Hides the overflowing text */
+    text-overflow: ellipsis; /* Adds the ellipsis (...) */
+    white-space: normal; /* Allows text to wrap */
+}
+
+#btn-open-about-tutor:focus {
+    box-shadow: 0 0 0 .25rem rgba(252, 138, 8, 0.25);
+}
+
+.progress {
+    overflow: hidden;
+    border-radius: 1rem;
+    height: 10px;
+}
+
+.progress .progress-bar {
+    background-color: var(--primary700);
+}
+
+.ph-flag {
+    width: 24px;
+    height: 24px;
+}
+
+.documentary-proof-item .btn-link,
+#btn-change-photo {
+    box-shadow: none;
+}
+.documentary-proof-item .btn {
+    min-height: 32px !important;
+    max-height: 32px !important;
+    height: 32px !important;
+    box-shadow: none !important;
+}
+
+.rating-review-content img {
+    width: 48px;
+    height: 48px;
+    border-radius: 3rem;
+    background-color: #f5f5f5;
+    border: 1px solid #eeeeee;
+}
+
+#btn-view-all-reviews {
+    color: var(--primary700);
+}
+
+.star-rating-control .fa-star {
+    font-size: 24px;
+    color: var(--gray400);
+}

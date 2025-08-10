@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".pages.CapturePhotoActivity">
+
+    <!-- BASE CAMERA CONTROLS -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:background="@color/black"
+                android:clickable="true"
+                android:focusable="true"/>
+
+
+        <!-- HINT SWIPE LENS -->
+        <LinearLayout
+            android:id="@+id/hint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/control_ribbon"
+            android:background="@color/opacity_30"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:elevation="10dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_hint_switch_camera_rear"
+                android:layout_marginBottom="8dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Swipe up to use rear camera"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/hint_indicator_finger"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_hint_switch_camera_finger"
+                android:layout_marginVertical="50dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Swipe down to use front camera"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_hint_switch_camera_front"
+                android:layout_marginBottom="48dp"/>
+
+            <Button
+                android:id="@+id/btn_hint_got_it"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK, Got it"
+                android:textAllCaps="false"
+                android:visibility="invisible"
+                android:background="@drawable/bg_white_rounded_button"/>
+
+        </LinearLayout>
+
+        <!-- CONTROL RIBBON -->
+        <LinearLayout
+            android:id="@+id/control_ribbon"
+            android:background="@color/opacity_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:elevation="10dp">
+
+            <ImageButton
+                android:id="@+id/capture_button"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:background="@drawable/camera_shutter_button"
+                android:layout_margin="12dp"
+                android:elevation="4dp"
+                android:text=""
+                android:contentDescription="Capture"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- CAPTURE PREVIEWER -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:id="@+id/capture_previewer_overlay"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/capture_previewer"
+            android:scaleType="centerCrop" />
+
+        <!-- CONTROL RIBBON -->
+        <LinearLayout
+            android:background="@color/opacity_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:elevation="10dp">
+
+            <Button
+                android:id="@+id/btn_previewer_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retry"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_white_rounded_button"
+                android:drawableStart="@drawable/ic_camera_capture_retry"
+                android:drawablePadding="8dp" />
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/btn_previewer_proceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proceed"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_white_rounded_button"
+                android:drawableEnd="@drawable/ic_camera_capture_proceed"
+                android:drawablePadding="8dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- UPON CAPTURE BLOCK INTERACTIONS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/overlay_on_process"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_camera_capture_processing"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:text="Processing image..."/>
+
+    </LinearLayout>
+</FrameLayout>

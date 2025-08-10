@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Ensure element dimensions include border and padding */
+}
+
+@font-face {
+    font-family: 'ResultFont';
+    src: url('axis.otf') format('opentype'); /* Replace with your font file path */
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent scrolling */
+    background-color: black;
+    /* Background color for unused space */
+    display: flex;
+    justify-content: center;
+    /* Center the wrapper horizontally */
+    align-items: center;
+    /* Center the wrapper vertically */
+    font-family: 'ResultFont', Arial, Helvetica, sans-serif;
+}
+
+#videoWrapper {
+    position: relative;
+    height: 100%;
+    /* Fill the height of the screen */
+    width: auto;
+    /* Maintain aspect ratio */
+    display: flex;
+    justify-content: center;
+    /* Center the content inside the wrapper */
+    align-items: center;
+}
+
+#videoElement,
+#canvasFrame {
+    position: absolute;
+    /* Layer the video and canvas on top of each other */
+    height: 100%;
+    /* Fill the height of the wrapper */
+    width: auto;
+    /* Adjust width while maintaining aspect ratio */
+    object-fit: contain;
+    border-radius: 0.5rem;
+    border: 2px solid #c2c2c22f;
+    /* Ensure aspect ratio preservation */
+}
+
+#videoElement {
+    opacity: 0;
+}
+
+#canvasFrame {
+    z-index: 2;
+    /* Keep canvas above the video */
+}
+
+.control-button {
+    position: absolute;
+    z-index: 10;
+    /* Keep button on top */
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 3rem;
+    padding: 14px;
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.control-button img {
+    width: 100%;
+    height: 100%;
+}
+
+.control-button:hover {
+    opacity: 0.8;
+}
+
+#enableBtn {
+    background-color: #EDF0F8;
+}
+#disableBtn {
+    padding: 20px;
+    background-color: #DC3545;
+}
+
+.hint-tap-to-scan {
+    position: absolute;
+    bottom: 10rem;
+    color: white;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    right: 0;
+}
+
+.hint-tap-to-scan.blinking-text {
+    animation: blink 1s infinite;
+    /* Animation name, duration, and infinite loop */
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+        /* Fully visible */
+    }
+
+    50% {
+        opacity: 0;
+        /* Invisible */
+    }
+}
+
+#textBox {
+    position: absolute;
+    z-index: 10;
+    /* top: 20px;
+    left: 50%;
+    transform: translateX(-50%); */
+    margin: auto;
+    top: 25%;
+
+    /* background-color: #0e8dbc; */
+    background: #ae72d6;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.6px);
+    -webkit-backdrop-filter: blur(6.6px);
+    border: 1px solid rgba(104, 90, 139, 0.07);
+    background: linear-gradient(
+        335deg, 
+        rgba(174, 114, 214, 0.35) 0%, 
+        rgba(252, 98, 98, 0.35) 50%,
+        rgba(247, 199, 131, 0.35) 100%
+    );
+
+    /* https://html-css-js.com/css/generator/text-shadow */
+    color: #FFFFFF;
+    text-shadow: 
+    0 1px 0 #CCCCCC, 
+    0 2px 0 #c9c9c9, 
+    0 3px 0 #bbb,
+    0 6px 1px rgba(0, 0, 0, .1), 
+    0 0 5px rgba(0, 0, 0, .1), 
+    0 1px 3px rgba(0, 0, 0, .3), 
+    0 3px 5px rgba(0, 0, 0, .2), 
+    0 5px 10px rgba(0, 0, 0, .25), 
+    0 10px 10px rgba(0, 0, 0, .2), 
+    0 20px 20px rgba(0, 0, 0, .15);
+
+    font-size: 20px;
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    /* text-transform: uppercase; */
+    visibility: hidden;
+}
+
+#crosshair {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    z-index: 4;
+    position: absolute;
+    background: transparent;
+}
+
+#crosshair .corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgb(95, 95, 95);
+}
+
+#crosshair .corner::before
+{
+    content: ''; /* Required for the pseudo-element */
+    position: absolute;
+    width: 18px; /* Same size as the parent corner */
+    height: 18px;
+    border: 1px solid white; /* Inner corner border */
+}
+
+#crosshair .top-left {
+    top: 0;
+    left: 0; /* Top-left corner */
+    border-right: none;
+    border-bottom: none;
+}
+
+#crosshair .corner.top-left::before {
+    top: -2px;
+    left: -2px; /* Top-left corner */
+    border-right: none;
+    border-bottom: none;
+}
+
+#crosshair .top-right {
+    top: 0;
+    right: 0; /* Top-right corner */
+    border-left: none;
+    border-bottom: none;
+}
+
+#crosshair .corner.top-right::before {
+    top: -2px;
+    right: -2px; /* Top-right corner */
+    border-left: none;
+    border-bottom: none;
+}
+
+#crosshair .bottom-left {
+    bottom: 0;
+    left: 0; /* Bottom-left corner */
+    border-right: none;
+    border-top: none;
+}
+
+#crosshair .corner.bottom-left::before {
+    bottom: -2px;
+    left: -2px; /* Bottom-left corner */
+    border-right: none;
+    border-top: none;
+}
+
+#crosshair .bottom-right {
+    bottom: 0;
+    right: 0; /* Bottom-right corner */
+    border-left: none;
+    border-top: none;
+}
+
+#crosshair .corner.bottom-right::before
+{
+    border-top: none; /* Hide the top border */
+    border-left: none; /* Hide the left border */
+    bottom: 0;
+    top: 0;
+}
+
+#resultFrame
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    flex-flow: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 3rem;
+}
+
+#result-tile {
+    padding: 10px;
+    background: white; /*linear-gradient(to bottom right, #ffffff, #e7e7e7);*/
+    border-radius: 1rem;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    text-transform: uppercase;
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.2), 
+                2px 2px 1px rgba(209, 209, 209, 0.8);
+    visibility: hidden;
+}
+
+#result-letter
+{
+    font-size: 32px;
+}
+
+#result-icon
+{
+    width: 48px;
+    height: 48px;
+}
+
+#scanned-letters-queue
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 12rem;
+    z-index: 4;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.scanned-letters-queue-item
+{
+    background-color: white;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 18px;
+    min-width: 25px;
+    width: 25px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Shadow outside the corners */
+}
+
+.loading-overlay {
+    font-family: Arial, Helvetica, sans-serif !important;
+    z-index: 1099;
+}

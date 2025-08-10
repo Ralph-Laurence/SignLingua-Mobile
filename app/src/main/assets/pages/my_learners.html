@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="currentpage" content="">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/page_find.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+
+    <div class="w-100 h-100 d-flex flex-column align-items-center overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="upper-ribbon w-100 flex-0-1-auto">
+            <div class="banner tutor variant2 w-100 position-relative">
+                <div class="bg-overlay"></div>
+                <div class="w-100 px-4 py-3 fg-content position-absolute start-0 end-0">
+                    
+                    <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Back
+                    </button>
+    
+                    <div class="w-100 glass-bg text-white p-3">
+                    
+                        <h5 class="text-white page-title w-100 text-center mb-3">
+                            <i class="fas fa-search me-2"></i>
+                            My Learners
+                        </h5>
+                        <div class="w-100 text-14 text-center mb-3 fw-400">Find learners by entering their first name, last name, or even their username.</div>
+                        <div class="bg-white w-100 d-flex align-items-center gap-2" id="input-search-wrapper">
+                            <input id="input-search-term" type="text" class="form-control text-16 fw-500" maxlength="32" placeholder="Enter search term">
+                            <button id="btn-search" class="btn btn-sm me-1">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="section-title w-100 px-3 pt-3 pb-2">
+                <div class="d-flex align-items-center w-100 mb-3">
+                    <h6 class="fw-600 m-0">Learners (<span id="lbl-total-learners">0</span> Total)</h6>
+                    <div class="btn-group ms-auto">
+                        <button type="button" id="btn-select-disability" class="btn btn-sm btn-secondary btn-filter text-dark text-truncate dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+                            <i class="fas fa-filter"></i>
+                            <span class="ms-2 filter-text">Filter</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button type="button" data-value="4" class="dropdown-item disability-filter-item"">
+                                    <i class="fas fa-check me-2 text-primary disability-filter-name"></i> Show All
+                                </button>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <button type="button" data-value="1" class="dropdown-item disability-filter-item" flex-start">
+                                    <img src="../static/images/badge_deaf_s.png" class="filter-dropdown-icon me-2">
+                                    <span class="disability-filter-name">Deaf</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-value="2" class="dropdown-item disability-filter-item" flex-start">
+                                    <img src="../static/images/badge_mute_s.png" class="filter-dropdown-icon me-2 disability-filter-name">
+                                    <span class="disability-filter-name">Mute</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-value="3" class="dropdown-item disability-filter-item" flex-start">
+                                    <img src="../static/images/badge_deafmute_s.png" class="filter-dropdown-icon me-2 disability-filter-name">
+                                    <span class="disability-filter-name">Deaf and Mute</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-value="0" class="dropdown-item disability-filter-item" flex-start">
+                                    <img src="../static/images/badge_noimp_s.png" class="filter-dropdown-icon me-2 disability-filter-name">
+                                    <span class="disability-filter-name">No Impairment</span>
+                                </button>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item">
+                                    <i class="fas fa-close me-2 text-danger"></i> Close
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-14">This list displays learners you've already had connections with.</p>
+            </div>
+        </div>
+
+        <!-- SEARCH ITEMS -->
+        <div id="search-results-wrapper" class="flex-1-1-auto overflow-hidden">
+            <div class="w-100 h-100 overflow-x-hidden overflow-y-auto p-3" id="search-results">
+                <!-- DYNAMIC CONTENT GOES HERE -->
+            </div>
+        </div>
+    </div>
+
+    <button type="button"
+        class="btn btn-danger fab position-fixed end-0 bottom-0 shadow m-4 z-500"
+        id="fab-clear-filter" style="display: none;">
+        <img src="../static/images/fab_icn_clear_search.png">
+    </button>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/find_learners.js" defer></script>
+</body>
+</html>
