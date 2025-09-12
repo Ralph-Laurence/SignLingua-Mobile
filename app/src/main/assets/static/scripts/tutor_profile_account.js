@@ -129,6 +129,11 @@ function renderDetails(json)
     $('#dynamic-tutor-username').text(obj.username);
     $('#dynamic-tutor-photo, #previewer-change-photo').attr('src', obj.photo);
 
+    if (obj.photo.includes('default_avatar'))
+        $('#btn-remove-photo').hide();
+    else
+        $('#btn-remove-photo').show();
+
     $('#input-username').val(obj.username);
     $('#input-email').val(obj.email);
     $('#input-bio').val(obj.bio);
