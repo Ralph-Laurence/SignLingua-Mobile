@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function()
         // Delay execution slightly to ensure blur settles
         setTimeout(() => {
             let fields = {
-                'bio'       : $('#input-bio'),
+                //'bio'       : $('#input-bio'),
                 'username'  : $('#input-username'),
                 'email'     : $('#input-email')
             };
