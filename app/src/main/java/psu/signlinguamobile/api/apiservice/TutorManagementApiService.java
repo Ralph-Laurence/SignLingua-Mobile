@@ -47,7 +47,7 @@ public interface TutorManagementApiService
             @Query("id") String hashedId
     );
 
-    @GET("tutor-management/tutors/classrooms")
+    @GET("tutor-management/tutors/tutor/classrooms")
     Call<TutorClassroomsResponse> fetchClassrooms();
 
     @GET("tutor-management/tutors/tutor/profile/account")

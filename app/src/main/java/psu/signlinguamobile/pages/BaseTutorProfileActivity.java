@@ -1,5 +1,6 @@
 package psu.signlinguamobile.pages;
 
+import android.content.Intent;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;

@@ -19,11 +19,10 @@ import com.google.gson.Gson;
 
 import psu.signlinguamobile.R;
 import psu.signlinguamobile.api.apiresponse.TutorClassroomsResponse;
-import psu.signlinguamobile.api.apiservice.LearnerManagementApiService;
 import psu.signlinguamobile.api.apiservice.TutorManagementApiService;
 import psu.signlinguamobile.api.client.ApiClient;
-import psu.signlinguamobile.delegates.LearnerClassroomsJsBridge;
 import psu.signlinguamobile.delegates.TutorClassroomsJsBridge;
+import psu.signlinguamobile.utilities.VerificationMiddlewareChecker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +34,7 @@ public class TutorClassroomsActivity extends AppCompatActivity
     private TutorManagementApiService tutorMgtApiService;
     private String lastLoadedUrl = "";
     private final String JS_BRIDGE_NAME = "TutorClassroomsJsBridge";
+    private VerificationMiddlewareChecker verificationMw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +55,8 @@ public class TutorClassroomsActivity extends AppCompatActivity
         if (insetsController != null) {
             insetsController.setAppearanceLightStatusBars(false); // or false for light icons
         }
+
+        verificationMw = new VerificationMiddlewareChecker(this);
 
         m_webView = findViewById(R.id.webView);
         WebSettings webSettings = m_webView.getSettings();
@@ -109,8 +111,15 @@ public class TutorClassroomsActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<TutorClassroomsResponse> call, Response<TutorClassroomsResponse> response)
             {
-                if (!response.isSuccessful() || response.body() == null) {
-                    Log.e("RETROFIT_ERROR", "API failed with code: " + response.code());
+                if (!verificationMw.IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful() || response.body() == null)
+                {
+                    Intent intent = new Intent(TutorClassroomsActivity.this, GlobalCrashHandler.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    finish();
+                    startActivity(intent);
                     return;
                 }
 

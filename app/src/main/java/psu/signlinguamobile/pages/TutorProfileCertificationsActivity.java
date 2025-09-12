@@ -74,8 +74,8 @@ public class TutorProfileCertificationsActivity
     @Override
     public void onEditCertification(String from, String certification, String description)
     {
-        String data = String.format("From: %s, Title: %s, Desc: %s", from, certification, description);
-        Log.w("MINE", "Certs :: " + data);
+//        String data = String.format("From: %s, Title: %s, Desc: %s", from, certification, description);
+//        Log.w("MINE", "Certs :: " + data);
 
         CertificationDocument request = new CertificationDocument(from, certification, description, null);
 

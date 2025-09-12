@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
@@ -64,6 +65,8 @@ public class SplashActivity extends AppCompatActivity
             Gson gson = new Gson();
             User user = gson.fromJson(userJson, User.class);
             SessionManager.getInstance().saveSession(user, token);
+
+            Log.d("MINE", "Saved User ID: " + user.getId());
         }
     }
 
@@ -87,14 +90,4 @@ public class SplashActivity extends AppCompatActivity
         }
         finish();
     }
-
-//    @Override
-//    protected void onDestroy()
-//    {
-//        super.onDestroy();
-//        if (m_webView != null)
-//        {
-//            m_webView.removeJavascriptInterface(JS_BRIDGE_NAME); // Prevents leaks
-//        }
-//    }
 }
