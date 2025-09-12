@@ -175,6 +175,11 @@ function renderProfilePicture(src)
         return;
 
     $('#dynamic-tutor-photo, #previewer-change-photo').attr('src', src);
+
+    if (src.includes('default_avatar'))
+        $('#btn-remove-photo').hide();
+    else
+        $('#btn-remove-photo').show();
 }
 
 function updateCharLengthCounter(current, max)
