@@ -282,18 +282,18 @@ public class TutorProfileAccountActivity
     }
 
 
-    private void alert(String message, String title)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setTitle(title.isEmpty() ? getString(R.string.app_name) : title);
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", null);
-        builder.setIcon(R.drawable.app_logo_xl);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    private void alert(String message, String title)
+//    {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(false);
+//        builder.setTitle(title.isEmpty() ? getString(R.string.app_name) : title);
+//        builder.setMessage(message);
+//        builder.setPositiveButton("OK", null);
+//        builder.setIcon(R.drawable.app_logo_xl);
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 //    private void fetchProfileDetails()
 //    {
 //        getApiService().fetchAccountDetails().enqueue(new Callback<>()

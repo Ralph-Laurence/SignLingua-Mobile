@@ -49,7 +49,6 @@ dependencies {
     implementation libs.navigation.ui
 //    implementation 'io.github.webrtc-sdk:android:125.6422.06.1'
     implementation project(":ucrop")
-    implementation project(":blurview")
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

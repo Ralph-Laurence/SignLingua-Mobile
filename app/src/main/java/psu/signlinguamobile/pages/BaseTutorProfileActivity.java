@@ -1,13 +1,21 @@
 package psu.signlinguamobile.pages;
 
 import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.function.Consumer;
 
+import psu.signlinguamobile.api.apiresponse.LoginResponse;
 import psu.signlinguamobile.api.apiresponse.TutorProfileDetailsResponse;
 import psu.signlinguamobile.api.apiservice.TutorManagementApiService;
 import psu.signlinguamobile.api.client.ApiClient;
 import psu.signlinguamobile.data.TutorProfileBannerCache;
+import psu.signlinguamobile.utilities.HttpCodes;
 import psu.signlinguamobile.utilities.TutorProfileNavController;
 import psu.signlinguamobile.utilities.UXMessages;
 import retrofit2.Call;
@@ -91,6 +99,33 @@ public abstract class BaseTutorProfileActivity extends BaseWebViewActivity
             public void onResponse(Call<TutorProfileDetailsResponse> call, Response<TutorProfileDetailsResponse> response)
             {
                 bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+                // Pending registrations throw 403
+//                if (response.code() == HttpCodes.FORBIDDEN)
+//                {
+//                    try
+//                    {
+//                        String errorJson = response.errorBody().string();
+//                        Gson gson = new Gson();
+//                        LoginResponse resp = gson.fromJson(errorJson, LoginResponse.class);
+//                        Log.e("MINE", errorJson); // Confirm payload is present
+//
+//                        HashMap<String, String> extra = new HashMap<>();
+//                        extra.put("userId", resp.getUser().getId());
+//
+//                        // Toast.makeText(BaseTutorProfileActivity.this, resp.getUser().getId(), Toast.LENGTH_SHORT).show();
+//                        launchWith(CaptureIDBoardingActivity.class, extra);
+//                        return;
+//                    }
+//                    catch (IOException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
 
                 if (!response.isSuccessful() || response.body() == null) {
                     bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);

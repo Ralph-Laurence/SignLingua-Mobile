@@ -1,0 +1,21 @@
+if (response.code() == HttpCodes.FORBIDDEN)
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string();
+                        Gson gson = new Gson();
+                        LoginResponse resp = gson.fromJson(errorJson, LoginResponse.class);
+                        Log.e("MINE", errorJson); // Confirm payload is present
+
+                        HashMap<String, String> extra = new HashMap<>();
+                        extra.put("userId", resp.getUser().getId());
+
+                        // Toast.makeText(BaseTutorProfileActivity.this, resp.getUser().getId(), Toast.LENGTH_SHORT).show();
+                        launchWith(CaptureIDBoardingActivity.class, extra);
+                        return;
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }

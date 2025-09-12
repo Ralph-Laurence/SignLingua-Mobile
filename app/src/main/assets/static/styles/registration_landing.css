@@ -1,0 +1,63 @@
+.banner {
+    overflow: hidden;
+    background: #FC677A;
+    background: linear-gradient(335deg, rgba(252, 103, 122, 1) 0%, rgba(255, 136, 108, 1) 50%, rgba(249, 180, 99, 1) 100%);
+    box-shadow: 0 -5px 0px -3px #ffffff inset;
+    -webkit-box-shadow: 0 -5px 0px -3px #ffffff inset;
+    -moz-box-shadow: 0 -5px 0px -3px #ffffff inset;
+}
+
+.banner .wave-divider {
+    margin-bottom: -2px;
+    display: block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='64' fill='%23fff' preserveAspectRatio='none'%3E%3Cpath d='m0 0 66.667 9.74c66.666 9.738 200 29.216 333.333 38.956a2741.784 2741.784 0 0 0 400 0c133.333-9.74 266.67-29.218 400-32.464 133.33-3.246 266.67 9.739 333.33 16.232l66.67 6.492V64H0V0Z'/%3E%3C/svg%3E");
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* Stretch both width and height */
+    background-position: bottom;
+}
+
+.banner .logo-brand {
+    width: auto;
+    height: 2.7rem;
+}
+
+#splash-image {
+    width: 100%;
+    height: auto;
+    max-width: 480px;
+    max-height: 480px;
+}
+
+#span-free {
+    font-weight: 600;
+    color: #3C398D;
+}
+
+.colored-underline {
+    display: inline-block;
+    /* box-shadow: inset 0 -2px 0 #5B56D4; */
+    border-bottom: 2px solid #C5D2F5;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #3C398D !important;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    /* align-items: initial !important; */
+    margin-top: 2rem !important;
+    bottom: 50%;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23C4C8D3'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23C4C8D3'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.btn-join-learner {
+    z-index: 5;
+}

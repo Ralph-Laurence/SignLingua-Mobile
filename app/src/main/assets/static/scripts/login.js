@@ -30,6 +30,12 @@ $(document).ready(() => {
             window.LoginBridge.onSignIn(username, password);
         }
     });
+
+    $('#btn-register').on('click', function()
+    {
+        if (window.LoginBridge)
+            window.LoginBridge.onRegister();
+    });
 });
 
 function alertInvalidCredentials()

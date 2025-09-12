@@ -40,6 +40,8 @@ public class ApiClient {
                     public Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
 
+                        Log.d("Retrofit", chain.request().url().toString());
+
                         SharedPreferences prefs = context.getSharedPreferences(Constants.SharedPrefKeys.AUTH, Context.MODE_PRIVATE);
                         String token = prefs.getString(Constants.SharedPrefKeys.TOKEN, null);
 
@@ -57,7 +59,7 @@ public class ApiClient {
                         if (token != null)
                         {
                             builder.header("Authorization", "Bearer " + token);
-                            // Log.d("MINE", "Authorization: Bearer " + token);
+                            Log.d("MINE", "Authorization: Bearer " + token);
                         }
 
                         Request request = builder.build();

@@ -1,0 +1,19 @@
+body {
+    background-color: #f0f3f7;
+}
+
+.registration-box {
+    border-radius: 2rem !important;
+}
+
+#btn-back {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 8px 14px;
+    border-radius: 14px;
+    max-width: 108px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}

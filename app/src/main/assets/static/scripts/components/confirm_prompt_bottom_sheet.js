@@ -82,6 +82,18 @@ function showConfirmPrompt(msg, options = {})
         confirmPromptOkButton.on('click', () => options.onOK());
     }
 
+    // Apply button texts
+    if ('okText' in options && typeof options.okText === 'string')
+        confirmPromptOkButton.text(options.okText)
+    else
+        confirmPromptOkButton.text("OK");
+
+    if ('cancelText' in options && typeof options.cancelText === 'string')
+        confirmPromptCancelButton.text(options.cancelText)
+    else
+        confirmPromptCancelButton.text("Cancel");
+
+
     // Optional cleanup after modal closes (just in case)
     confirmPromptEl.off('hidden.bs.modal').on('hidden.bs.modal', () => {
         confirmPromptCancelButton.off('click');

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main">
+
+
+    <!-- MAIN CONTENT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Take clear, well-lit photos of both the front and back sides of your ID. Tap Submit when you're finished."
+            android:textFontWeight="700"
+            android:textSize="16sp"
+            android:layout_margin="16dp"/>
+
+        <!-- Front ID Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_front_id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="#4CAF50">
+
+            <ImageView
+                android:id="@+id/previewer_front_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_margin="20dp"
+                android:contentDescription="Front ID preview"
+                android:src="@drawable/placeholder_frontside" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- android:backgroundTint="#9C27B0" -->
+        <Button
+            android:layout_gravity="end"
+            android:id="@+id/button_capture_front"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Capture Front Side"
+            android:textColor="#000000"
+            android:backgroundTint="#DBDEFA"
+            android:padding="12dp"
+            android:layout_marginHorizontal="12dp" />
+
+        <!-- Back ID Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_back_id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_margin="12dp"
+            android:background="#4CAF50">
+
+            <ImageView
+                android:id="@+id/previewer_back_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_margin="20dp"
+                android:contentDescription="Back ID preview"
+                android:src="@drawable/placeholder_backside" />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_gravity="end"
+            android:id="@+id/button_capture_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Capture Back Side"
+            android:textColor="#000000"
+            android:backgroundTint="#DBDEFA"
+            android:padding="12dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginHorizontal="12dp"/>
+
+    </LinearLayout>
+
+
+    <!-- LOADING OVERLAY -->
+    <LinearLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3000000"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ProgressBar
+            android:id="@+id/spinner"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please wait while we process your verification..."
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:paddingHorizontal="24dp"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>
+

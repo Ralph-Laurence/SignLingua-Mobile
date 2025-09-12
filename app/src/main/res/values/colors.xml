@@ -13,4 +13,6 @@
     <color name="learner_status_bar_darker">#FC7D68</color>
     <color name="tutor_status_bar_darker">#383489</color>
     <color name="opacity_30">#4D000000</color>
+    <color name="opacity_80">#CC000000</color>
+    <color name="specimen_id_bg">#B3363432</color>
 </resources>

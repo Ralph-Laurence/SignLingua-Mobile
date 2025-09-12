@@ -20,6 +20,32 @@
         android:theme="@style/Theme.SignLinguaMobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity android:name=".pages.GlobalCrashHandler"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+        <activity android:name=".pages.UnderModReviewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+        <activity
+            android:name=".pages.CaptureIDMainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+        <activity
+            android:name=".pages.CaptureIDBoardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.CaptureIDCameraActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.SelfieActivity" />
+        <activity
+            android:name=".pages.RegistrationLanding"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.RegistrationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
         <activity
             android:name=".pages.PickedFromGalleryPreviewer"
             android:exported="false"

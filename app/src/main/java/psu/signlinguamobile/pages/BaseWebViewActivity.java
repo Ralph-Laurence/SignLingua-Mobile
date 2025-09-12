@@ -25,11 +25,14 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.gson.Gson;
 
 import java.lang.Object;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import psu.signlinguamobile.R;
 import psu.signlinguamobile.managers.SessionManager;
+import psu.signlinguamobile.utilities.VerificationMiddlewareChecker;
 
 public abstract class BaseWebViewActivity extends AppCompatActivity
 {
@@ -39,6 +42,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
     private String lastLoadedUrl = "";
 
     private boolean m_checkAuth = true;
+    private boolean m_useDarkStatusIcons = false;
 
     /**
      * Called before rendering the view
@@ -99,7 +103,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
         {
             // false for light icons
             // true for dark icons
-            insetsController.setAppearanceLightStatusBars(false);
+            insetsController.setAppearanceLightStatusBars(m_useDarkStatusIcons); //(false);
         }
 
         // Modernized approach to handle back key press
@@ -137,6 +141,16 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
     protected void shouldCheckAuth(boolean shouldCheck)
     {
         m_checkAuth = shouldCheck;
+    }
+
+    /**
+     * Should the status bar use light or dark icons
+     * @param useDark -> FALSE for LIGHT icons
+     *                -> TRUE for DARK icons
+     */
+    protected void useDarkStatusIcons(boolean useDark)
+    {
+        m_useDarkStatusIcons = useDark;
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -232,6 +246,22 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
         finish();
         startActivity(intent);
     }
+    /**
+     * Opens a given activity with String key-value pairs
+     * */
+    protected <T> void launchWith(Class<T> activity, HashMap<String, String> extras)
+    {
+        Intent intent = new Intent(BaseWebViewActivity.this, activity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        for (Map.Entry<String, String> kvp : extras.entrySet())
+        {
+            intent.putExtra(kvp.getKey(), kvp.getValue());
+        }
+
+        finish();
+        startActivity(intent);
+    }
 
     //=================================================
     // </editor-fold>
@@ -313,6 +343,21 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
         String jsBody = hasPayload
                 ? String.format("%s(`%s`);", function, param)
                 : String.format("%s();", function);
+
+        Log.d("MINE", jsBody);
+        m_webView.evaluateJavascript(jsBody, null);
+    }
+
+    /**
+     * Call a function with a simple parameter
+     * @param function The Javascript function to call
+     * @param param The parameter data to send
+     */
+    protected void bridgeCall_function(String function, int param)
+    {
+        if (!checkWebview() || function == null || function.trim().isEmpty()) return;
+
+        String jsBody = String.format("%s(%d);", function, param);
 
         Log.d("MINE", jsBody);
         m_webView.evaluateJavascript(jsBody, null);
@@ -411,6 +456,22 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
         {
             launch(LoginActivity.class);
         }
+    }
+    //=================================================
+    // </editor-fold>
+    //=================================================
+
+    //=================================================
+    // <editor-fold desc="Verification Middleware">
+    //=================================================
+    private VerificationMiddlewareChecker verificationMw;
+
+    protected VerificationMiddlewareChecker getVerificationMw()
+    {
+        if (verificationMw == null)
+            verificationMw = new VerificationMiddlewareChecker(this);
+
+        return verificationMw;
     }
     //=================================================
     // </editor-fold>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Crash</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/verificationmodreview.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <div class="container-fluid overflow-hidden gx-0 position-relative">
+
+
+        <div class="w-100 d-flex flex-column align-items-center px-4 pt-3 pb-5">
+
+            <div class="splash w-100 h-auto flex-center my-3">
+                <img class="splash-image" src="../static/images/error_handler_splash.png" alt="splash" srcset="">
+            </div>
+
+            <h1 class="fw-bold w-100 mb-3 text-center">Well, that wasn't supposed to happen.</h1>
+            <p class="w-100 text-center text-color-gray-900 text-16 mb-3">We ran into a technical issue and need to close the app. Thanks for your patience.</p>
+            
+            <button id="btn-exit" type="button" class="btn danger-button mt-3 px-4 w-100">
+                <i class="fas fa-close"></i>
+                Exit
+            </button>
+            
+        </div>
+
+    </div>
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/scripts/globalcrashhandler.js" defer></script>
+
+</body>
+
+</html>

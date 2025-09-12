@@ -21,6 +21,11 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
 import psu.signlinguamobile.R;
 import psu.signlinguamobile.api.apirequest.LoginRequest;
 import psu.signlinguamobile.api.apiresponse.LoginResponse;
@@ -28,38 +33,28 @@ import psu.signlinguamobile.api.apiservice.AuthApiService;
 import psu.signlinguamobile.api.client.ApiClient;
 import psu.signlinguamobile.data.Constants;
 import psu.signlinguamobile.delegates.LoginJsBridge;
+import psu.signlinguamobile.managers.LoginManager;
 import psu.signlinguamobile.managers.SessionManager;
 import psu.signlinguamobile.models.User;
+import psu.signlinguamobile.utilities.HttpCodes;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements LoginJsBridge.LoginBridgeListener
 {
-
-//    private GeckoView m_geckoView;
-//    private GeckoSession m_session;
-//    private GeckoRuntime m_runtime;
-//    private GeckoCustomNavigationDelegate m_navDelegate;
     private WebView m_webView;
-    private static final String PREFS_NAME_AUTH = Constants.SharedPrefKeys.AUTH;
-    private static final String PREFS_KEY_TOKEN = Constants.SharedPrefKeys.TOKEN;
-    private static final String PREFS_KEY_USER_ID = Constants.SharedPrefKeys.USER_ID;
-    private static final String PREFS_KEY_USER_DETAILS = Constants.SharedPrefKeys.USER_DETAILS;
+
+    private LoginManager loginManager;
     private AuthApiService apiService;
     private final String JS_BRIDGE_NAME = "LoginBridge";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_common_web_layout);
-
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_root), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -74,19 +69,6 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
         if (insetsController != null) {
             insetsController.setAppearanceLightStatusBars(true); // or false for light icons
         }
-
-//        m_geckoView = findViewById(R.id.geckoView);
-//        m_session   = new GeckoSession();
-//        m_runtime   = GeckoRuntime.create(this);
-//        m_navDelegate = new GeckoCustomNavigationDelegate();
-//
-//        m_session.open(m_runtime);
-//
-//        m_session.getSettings().setAllowJavascript(true);
-//        m_session.setNavigationDelegate(m_navDelegate);
-//
-//        m_geckoView.setSession(m_session);
-//        m_session.loadUri("resource://android/assets/pages/login.html"); // Or your local HTML
 
         m_webView = findViewById(R.id.webView);
         WebSettings webSettings = m_webView.getSettings();
@@ -103,12 +85,20 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
 
         // Initialize Retrofit API Service
         apiService = ApiClient.getClient(this).create(AuthApiService.class);
+
+        loginManager = new LoginManager(this.getApplicationContext());
     }
 
     // This method is called from the bridge (make sure to switch to UI thread if necessary)
     @Override
     public void onSignIn(final String username, final String password) {
         runOnUiThread(() -> performLogin(username, password));
+    }
+
+    @Override
+    public void onRegister()
+    {
+        launch(RegistrationLanding.class);
     }
 
     private void performLogin(String username, String password) {
@@ -123,6 +113,14 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
                     LoginResponse loginResponse = response.body();
                     String token = loginResponse.getToken();
                     User user = loginResponse.getUser();
+
+                      // If the registration was for tutor, ask for their valid ID
+//                    if (user.getRole() == User.Role.TUTOR.getValue() && loginResponse.getRequireValidId())
+//                    {
+//                        # HANDLE WITH 403 INSTEAD
+//                        launch(CaptureIDBoardingActivity.class);
+//                        return;
+//                    }
 
                     // Log the token for debugging
                     Log.d("Login", "Token: " + token);
@@ -139,24 +137,55 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
                     Log.d("Login", "Address: " + user.getAddress());
                     Log.d("Login", "Photo: " + user.getPhoto()); // Constructed photo URL
 
-                    cacheUser(user, token);
-//                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME_AUTH, Context.MODE_PRIVATE);
+                    loginManager.cacheUser(user, token);
+
+//                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+//                    if (user.getRole() == User.Role.LEARNER.getValue())
+//                        launch(LearnerHomeActivity.class);
 //
-//                    prefs.edit()
-//                         .putString(PREFS_KEY_TOKEN, token)
-//                         .putString(PREFS_KEY_USER_ID, user.getId())
-//                         .apply();
+//                    else if (user.getRole() == User.Role.TUTOR.getValue())
+//                        launch(TutorHomeActivity.class);
 
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                    // If the registration was for tutor, ask for their valid ID
+                    if (user.getRole() == User.Role.TUTOR.getValue())
+                    {
+                        if (loginResponse.getRequireValidId())
+                        {
+                            launch(CaptureIDBoardingActivity.class);
+                            return;
+                        }
 
-                    if (user.getRole() == User.Role.LEARNER.getValue())
-                        startActivity(new Intent(LoginActivity.this, LearnerHomeActivity.class));
+                        launch(TutorHomeActivity.class);
+                    }
+                    else if (user.getRole() == User.Role.LEARNER.getValue())
+                        launch(LearnerHomeActivity.class);
 
-                    else if (user.getRole() == User.Role.TUTOR.getValue())
-                        startActivity(new Intent(LoginActivity.this, TutorHomeActivity.class));
+                }
+                else
+                {
+                    // Pending registrations throw 403
+                    if (response.code() == HttpCodes.FORBIDDEN)
+                    {
+                        try
+                        {
+                            String errorJson = response.errorBody().string();
+                            Gson gson = new Gson();
+                            LoginResponse resp = gson.fromJson(errorJson, LoginResponse.class);
+                            Log.e("MINE", errorJson); // Confirm payload is present
 
-                    finish();
-                } else {
+                            HashMap<String, String> extra = new HashMap<>();
+                            extra.put("userId", resp.getUser().getId());
+
+                            launchWith(CaptureIDBoardingActivity.class, extra);
+                            return;
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+
                     Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
                     m_webView.evaluateJavascript("javascript:alertInvalidCredentials()", null);
                 }
@@ -173,33 +202,6 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
         });
     }
 
-    private void cacheUser(User user, String token)
-    {
-        // Assume you have a Gson instance;
-        Gson gson = new Gson();
-
-        // Inside performLogin() after a successful login:
-        // User user = loginResponse.getUser(); // Already contains name, photo, etc.
-        String userJson = gson.toJson(user);
-
-        // Save token and user JSON together:
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME_AUTH, Context.MODE_PRIVATE);
-        prefs.edit()
-                .putString(PREFS_KEY_TOKEN, token)
-                .putString(PREFS_KEY_USER_ID, user.getId()) // or part of the userJson, but saving separately if desired
-                .putString(PREFS_KEY_USER_DETAILS, userJson)
-                .commit();
-
-        // SharedPreferences prefsx = getSharedPreferences(PREFS_NAME_AUTH, Context.MODE_PRIVATE);
-        // String savedToken = prefsx.getString(PREFS_KEY_TOKEN, null);
-        // String savedUserId = prefsx.getString(PREFS_KEY_USER_ID, null);
-        // Log.d("Login", String.format("Stored Token: %s, Stored ID: %s", savedToken, savedUserId));
-
-        // Also cache in your session manager:
-        SessionManager.getInstance().saveSession(user, token);
-
-    }
-
     @Override
     protected void onDestroy()
     {
@@ -208,5 +210,27 @@ public class LoginActivity extends AppCompatActivity implements LoginJsBridge.Lo
         {
             m_webView.removeJavascriptInterface(JS_BRIDGE_NAME); // Prevents leaks
         }
+    }
+
+    protected <T> void launch(Class<T> activity)
+    {
+        Intent intent = new Intent(LoginActivity.this, activity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        startActivity(intent);
+    }
+
+    protected <T> void launchWith(Class<T> activity, HashMap<String, String> extras)
+    {
+        Intent intent = new Intent(LoginActivity.this, activity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        for (Map.Entry<String, String> kvp : extras.entrySet())
+        {
+            intent.putExtra(kvp.getKey(), kvp.getValue());
+        }
+
+        finish();
+        startActivity(intent);
     }
 }

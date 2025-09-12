@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 rootProject.name = "SignLinguaMobile"
 include ':app'
 include ':ucrop'
-include ':blurview'

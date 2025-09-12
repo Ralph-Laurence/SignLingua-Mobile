@@ -26,6 +26,8 @@ import psu.signlinguamobile.api.apiservice.LearnerManagementApiService;
 import psu.signlinguamobile.api.client.ApiClient;
 import psu.signlinguamobile.delegates.FindLearnerJsBridge;
 import psu.signlinguamobile.models.LearnerItem;
+import psu.signlinguamobile.utilities.UXMessages;
+import psu.signlinguamobile.utilities.VerificationMiddlewareChecker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +38,8 @@ public class FindLearnersActivity extends AppCompatActivity implements FindLearn
     private LearnerManagementApiService learnerMgtApiService;
     private String lastLoadedUrl = "";
     private final String JS_BRIDGE_NAME = "FindLearnerJsBridge";
+
+    private VerificationMiddlewareChecker verificationMw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +70,8 @@ public class FindLearnersActivity extends AppCompatActivity implements FindLearn
                 onGoBack();
             }
         });
+
+        verificationMw = new VerificationMiddlewareChecker(this);
 
         m_webView = findViewById(R.id.webView);
         WebSettings webSettings = m_webView.getSettings();
@@ -116,8 +122,17 @@ public class FindLearnersActivity extends AppCompatActivity implements FindLearn
             @Override
             public void onResponse(Call<PaginatedResponse<LearnerItem>> call, Response<PaginatedResponse<LearnerItem>> response)
             {
-                if (!response.isSuccessful() || response.body() == null) {
-                    Log.e("RETROFIT_ERROR", "API failed with code: " + response.code());
+                if (!verificationMw.IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful() || response.body() == null)
+                {
+                    Intent intent = new Intent(FindLearnersActivity.this, GlobalCrashHandler.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    // intent.putExtra("crash_reason", "Empty body on successful response");
+                    finish();
+                    startActivity(intent);
+                    // Log.e("RETROFIT_ERROR", "API failed with code: " + response.code());
                     return;
                 }
 

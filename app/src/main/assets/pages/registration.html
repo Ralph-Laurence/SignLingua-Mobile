@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/registration.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <!-- <div class="container-fluid d-flex flex-column align-items-center px-4 py-5"> -->
+
+    <div class="container-fluid overflow-hidden px-3 pt-4 position-relative">
+        <!-- <header class="banner w-100">
+                <div class="logo-wrapper flex-center w-100 py-3">
+                    <img src="../static/images/logo-brand-sm-white.png" class="logo-brand mx-auto">
+                </div>
+                <div class="wave-divider"></div>
+            </header> -->
+
+        <div class="row mb-5">
+            <div class="col">
+                <div class="h-100 d-flex flex-column justify-content-center">
+                    <button id="btn-back" class="btn btn-sm text-decoration-none">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Back
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="flex-center h-100 w-100">
+                    <img src="../static/images/logo-brand-sm.png" height="45" alt="logo" class="mx-auto">
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="card registration-box">
+            <div class="card-body p-4">
+
+                <h1 class="fw-bold w-100 mb-4">Let's register an account</h1>
+
+                <div id="registration-carousel" class="carousel slide" data-bs-interval="false" data-bs-touch="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active p-1">
+
+                            <p class="w-100 text-color-gray-900 mb-4">1. Basic Information</p>
+
+                            <div class="input-group mb-3">
+                                <input type="text" id="input-fname" class="form-control p-2 text-16" placeholder="Firstname"
+                                    aria-label="Firstname" autocomplete="off" autocorrect="off" spellcheck="false"
+                                    maxlength="32">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="input-lname" class="form-control p-2 text-16" placeholder="Lastname"
+                                    aria-label="Lastname" autocomplete="off" autocorrect="off" spellcheck="false"
+                                    maxlength="32">
+                            </div>
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-text text-14 px-1">
+                                    <img src="../static/images/icn_contact_ph.png" height="24" class="me-1">
+                                    <span class="fw-bold">+63</span>
+                                </div>
+                                <input type="tel" class="form-control text-16 rounded-end " id="input-contact" value=""
+                                    placeholder="Contact No." maxlength="10">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="input-address" class="form-control p-2 text-16" placeholder="Address"
+                                    aria-label="Address" autocomplete="off" autocorrect="off" spellcheck="false"
+                                    maxlength="255">
+                            </div>
+
+                            <div class="w-100 d-flex flex-row-reverse">
+                                <button
+                                    type="button"
+                                    class="btn primary-button btn-next"
+                                    datax-bs-target="#registration-carousel"
+                                    datax-bs-slide="next"
+                                    data-page-target="2">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="carousel-item p-1">
+                            <p class="w-100 text-color-gray-900 mb-4">2. Accessibility Needs</p>
+                            <div class="alert alert-secondary p-2 bg-light">
+                                <small class="text-muted d-block">
+                                    As a community, we respect all forms of communication. Please let us know what best describes your needs.
+                                </small>
+                            </div>
+                                
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="impairment_options" id="option_impairment_none" value="0" checked>
+                                <label class="form-check-label text-16" for="option_impairment_none">
+                                    No Impairments
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="impairment_options" id="option_impairment_deaf" value="1">
+                                <label class="form-check-label text-16" for="option_impairment_deaf">
+                                    Deaf or Hard of Hearing
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="impairment_options" id="option_impairment_mute" value="2">
+                                <label class="form-check-label text-16" for="option_impairment_mute">
+                                    Non-Verbal
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="impairment_options" id="option_impairment_deaf_mute" value="3">
+                                <label class="form-check-label text-16" for="option_impairment_deaf_mute">
+                                    Deaf and Non-Verbal
+                                </label>
+                            </div>
+
+                            <div class="w-100 d-flex align-items-center justify-content-between">
+                                <button  type="button" class="btn secondary-button"
+                                    data-bs-target="#registration-carousel" data-bs-slide="prev">
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn primary-button btn-next"
+                                    data-page-target="3">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-1">
+                            
+                            <p class="w-100 text-color-gray-900 mb-4">3. Your Account</p>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="email-addon">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="text" id="input-email" class="form-control p-2 text-16" placeholder="Email"
+                                    aria-label="Email" aria-describedby="email-addon" autocomplete="off" autocorrect="off"
+                                    spellcheck="false">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="email-addon">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                                <input type="text" id="input-username" class="form-control p-2 text-16" placeholder="Username"
+                                    aria-label="Username" aria-describedby="username-addon" autocomplete="off" autocorrect="off"
+                                    spellcheck="false">
+                            </div>
+                    
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="password-addon">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" id="input-password" class="form-control p-2 text-16" placeholder="New Password"
+                                    aria-label="Password" aria-describedby="password-addon" autocomplete="new-password">
+                            </div>
+
+                            <div class="input-group mb-4">
+                                <span class="input-group-text" id="email-addon">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
+                                <input type="password" id="input-retype" class="form-control p-2 text-16" placeholder="Confirm Password"
+                                    aria-label="Password" aria-describedby="retype-addon" autocomplete="new-password">
+                            </div>
+
+                            <div class="w-100 d-flex align-items-center justify-content-between">
+                                <button  type="button" class="btn secondary-button"
+                                    data-bs-target="#registration-carousel" data-bs-slide="prev">
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button id="btn-submit" type="button" class="btn primary-button px-4">
+                                    Done
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js" defer></script>
+    <script src="../static/scripts/registration.js" defer></script>
+
+</body>
+
+</html>
