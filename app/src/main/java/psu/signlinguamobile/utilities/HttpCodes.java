@@ -7,4 +7,5 @@ public class HttpCodes {
     public static final int SUCCESS          = 200;
     public static final int NOT_MODIFIED     = 304;
     public static final int FORBIDDEN        = 403;
+    public static final int CONFLICT         = 409;
 }

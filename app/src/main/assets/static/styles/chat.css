@@ -1,0 +1,192 @@
+@font-face {
+    font-family: 'Poppins-ExtraBold';
+    src: url('../fonts/Poppins-ExtraBold.ttf');
+}
+
+body {
+    background-color: #ececec;
+    margin: 0;
+    height: 100%;
+}
+
+#messenger-icon {
+    height: 32px;
+    width: 32px;
+}
+#messenger-title {
+    font-family: 'Poppins-ExtraBold';
+    color: #231489;
+    margin: 0 !important;
+}
+
+.user-photo {
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #EFEAE7;
+}
+
+.user-photo img {
+    width: 100%;
+    height: 100%;
+}
+
+#user-profile-link.user-photo {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.contact-photo.user-photo {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.contact-last-message-time {
+    flex-shrink: 0;
+    text-align: right;
+    opacity: 0.5;
+    white-space: nowrap;
+}
+
+.contact-last-message {
+    opacity: 0.7;
+}
+
+.emoji-img {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.contact-item {
+    background-color: white;
+}
+.contact-item:active {
+    background-color: #f5f5f5;
+    border: 1px solid #dfdfdf;
+}
+
+/*=======================================*/
+/*          MAIN MESSENGER STYLES        */
+/*=======================================*/
+.messenger-header {
+    box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .15) !important;
+}
+.messenger-header #contact-photo-wrapper {
+    max-width: 50px;
+    max-height: 50px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #EFEAE7;
+}
+
+.messenger-header #contact-photo {
+    width: 100%;
+    height: 100%;
+}
+
+.messenger-convbox-wrapper {
+    background-color: #ffffff;
+}
+
+.convo-item {
+    border-radius: 1.25rem;
+    padding: 8px 16px;
+    width: fit-content;
+    max-width: 60%;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.convo-item.from-contact {
+    background-color: #F8F4F1;
+    border-top-left-radius: 0.2rem;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.convo-item.from-me {
+    background-color: #3A328E;
+    color: white;
+    border-bottom-right-radius: 0.2rem;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.btn-scroll-latest {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 48px;
+    min-height: 48px;
+    width: 48px;
+    height: 48px;
+    background: white;
+    color: #574CD6;
+    border: 1px solid #dfdfdf;
+}
+
+/*=======================================*/
+/*          CHAT CONTROL STYLES          */
+/*=======================================*/
+.btn-send img,
+#btn-emoji-picker img {
+    width: 100%;
+    height: 100%;
+}
+
+#btn-emoji-picker {
+    background-color: #231489;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-send {
+    padding: 0;
+    background: none;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-box-control-wrapper
+{
+    align-items: flex-end;
+}
+  
+.emoji-wysiwyg-editor {
+    flex: 1 1 auto;
+    border: 1px solid #ccc;
+    border-radius: 1.5rem;
+    padding: 0.4rem 0.75rem;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.convitem .emoji-img {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.contact-item
+{
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+}

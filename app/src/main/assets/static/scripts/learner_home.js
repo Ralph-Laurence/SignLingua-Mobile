@@ -19,10 +19,17 @@ $(document).ready(() => {
         }
     });
 
-    $('#btn-nav-classrooms').on("click", function () {
+    // $('#btn-nav-classrooms').on("click", function () {
+
+    //     if (window.LearnerHomeJsBridge) {
+    //         window.LearnerHomeJsBridge.onNavClassrooms();
+    //     }
+    // });
+
+    $('#btn-nav-chat').on("click", function () {
 
         if (window.LearnerHomeJsBridge) {
-            window.LearnerHomeJsBridge.onNavClassrooms();
+            window.LearnerHomeJsBridge.onNavChat();
         }
     });
     

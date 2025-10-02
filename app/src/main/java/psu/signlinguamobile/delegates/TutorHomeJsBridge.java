@@ -11,12 +11,13 @@ public class TutorHomeJsBridge
        void onNavFindLearners();
        void onNavScanner();
        void onNavMyLearners();
-       void onNavClassrooms();
+       // void onNavClassrooms();
+       void onNavChat();
        void onNavMyProfile();
+       void onNavHireRequests();
     }
 
     private final TutorHomeJsBridgeListener listener;
-    private static final String TAG = "LoginJsBridge";
 
     public TutorHomeJsBridge(TutorHomeJsBridgeListener listener)
     {
@@ -55,11 +56,19 @@ public class TutorHomeJsBridge
         }
     }
 
-    @JavascriptInterface
+    /*@JavascriptInterface
     public void onNavClassrooms()
     {
         if (listener != null) {
             listener.onNavClassrooms();
+        }
+    }*/
+
+    @JavascriptInterface
+    public void onNavChat()
+    {
+        if (listener != null) {
+            listener.onNavChat();
         }
     }
 
@@ -68,6 +77,14 @@ public class TutorHomeJsBridge
     {
         if (listener != null) {
             listener.onNavMyProfile();
+        }
+    }
+
+    @JavascriptInterface
+    public void onNavHireRequests()
+    {
+        if (listener != null) {
+            listener.onNavHireRequests();
         }
     }
 }

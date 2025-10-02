@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="currentpage" content="">
+    
+    <!-- Used to identify what nav page are we in. This will be used on the dropdown. -->
+    <meta name="navpage" content="acc">
+
     <title>Login</title>
     <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
     <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
@@ -12,14 +15,16 @@
     <link rel="stylesheet" href="../static/fonts/inter.css">
     <link rel="stylesheet" href="../static/styles/global.css">
     <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
-    <link rel="stylesheet" href="../static/styles/classrooms.css">
+    <link rel="stylesheet" href="../static/styles/tutor_profile.css">
+    <link rel="stylesheet" href="../static/styles/classroom-icons.css">
+    <link rel="stylesheet" href="../static/styles/tutor_classroom.css">
     <link rel="icon" href="data:," />
 </head>
 
 <body>
-    
+
     <!-- LOADING OVERLAY -->
-    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+    <!-- <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
         <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
             <div class="progress w-60 page-loader-progress">
                 <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
@@ -27,56 +32,81 @@
             </div>
             <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
         </div>
-    </div>
+    </div> -->
 
-    <div class="w-100 h-100 d-flex flex-column align-items-center overflow-x-hidden">
-        
-        <!-- BANNER -->
-        <div class="upper-ribbon w-100 flex-0-1-auto">
-            <div class="banner w-100 position-relative">
-                <div class="bg-overlay color tutor"></div>
-                <div class="bg-overlay visual"></div>
-                <div class="w-100 px-4 py-3 fg-content position-absolute start-0 end-0">
-                    
-                    <div class="d-flex align-items-center w-100 mb-2">
-                        <div class="back-button-container w-25 me-auto">
-                            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
-                                <i class="fa-solid fa-arrow-left me-2"></i>Back
-                            </button>
-                        </div>
-                        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">Classrooms</h5>
-                        <div class="w-25 ms-auto spacer"></div>
-                    </div>
-    
-                    <div class="w-100 p-3 text-14 text-white short-caption tutor">
-                        Classrooms allow you to host one-on-one video sessions with learners, offering them personalized learning and mentorship.
-                    </div>
-                </div>
-                <img src="../static/images/toon_art_classroom_1.png" alt="" class="position-absolute mt-3 top-0 end-0 toon">
+
+    <div class="main-layout w-100 h-100 d-flex flex-column">
+        <div class="ribbon-header d-flex align-items-center w-100 px-3">
+            <div class="back-button-container w-25 me-auto">
+                <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Back
+                </button>
             </div>
+            <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">My Classrooms</h5>
+            <div class="w-25 ms-auto spacer"></div>
         </div>
-
-        <div class="w-100 dynamic-content pt-5 px-4">
-            
-            <div class="empty-classrooms-indicator w-100 flex-center">
-                <div class="d-flex align-items-center flex-column gap-3 w-75 opacity-80">
-                    <img src="../static/images/classroom_not_member_icn.png" class="w-60 h-60">
-                    <h6 class="text-muted text-center text-16">Hmm... You haven't created any classrooms yet. Create one now and add your learners—you can add more anytime.</h6>
+        <div class="flex-1-1-auto overflow-x-hidden overflow-y-auto" id="list-classrooms">
+            <div class="row m-3">
+                <div class="col">
+                    <h6 class="my-1" id="total-classrooms">0 Classrooms</h6>
+                </div>
+                <div class="col text-end">
+                    <img src="../static/images/icn_classrooms_activity.png" height="32">
                 </div>
             </div>
-            
+            <div class="p-3 border bg-secondary-subtle text-14 mx-3 mt-3 mb-1">
+                <img src="../static/images/icn_info_circle_blue.png" class="me-1" width="24" height="24">
+                <span id="classroom-random-hints"></span>
+            </div>
+            <div class="main-content w-100 p-3">
+                <!-- DYNAMIC CONTENT HERE -->
+                
+            </div>
         </div>
+        <!-- <div class="flex-1-1-auto p-3 overflow-x-hidden overflow-y-auto display-none" id="tutor-on-empty-friend-requests">
+            
+            <div class="row mb-1">
+                <div class="col">
+                    <h6 class="my-1">0 Requests</h6>
+                </div>
+                <div class="col text-end">
+                    <img src="../static/images/icn_hire_requests.png" height="28">
+                </div>
+            </div>
+            
+            <p class="mb-3 w-75 text-14">Hmm... It looks like you haven't received any hiring requests yet.</p>
+
+            <div class="w-100 d-flex gap-2 mb-3">
+                <div class="left-content">
+                    <img src="../static/images/icn_info_circle_blue.png" height="24">
+                </div>
+                <div class="flex-fill text-14"><strong>Pro Tip:</strong> Head over to the <strong><i>"Find Learners"</i></strong> section and add learners from there.</div>
+            </div>
+
+            <button id="btn-find-learners" type="button" class="btn small-button primary-button w-100 px-3">
+                Find Learners
+                <i class="fas fa-chevron-right ms-1"></i>
+            </button>
+        </div> -->
+
+        <button type="button"
+            class="btn btn-danger fab position-fixed end-0 bottom-0 shadow m-4 z-500"
+            data-bs-toggle="modal" data-bs-target="#editProfileBottomSheet">
+            <i class="fas fa-plus"></i>
+        </button>
+
     </div>
 
-    
-    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" id="jquery-script" defer></script>
     <script src="../static/scripts/loader_overlay.js" defer></script>
     <script src="../static/libraries/dompurify/purify.min.js" defer></script>
     <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
     <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
-    <script src="../static/scripts/star_ratings_control.js" defer></script>
-    <script src="../static/scripts/tutor_classrooms.js" defer></script>
 
-    <!-- <script src="../static/scripts/components/warning_modal.js"></script> -->
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js"></script>
+    <script src="../static/scripts/components/success_snackbar.js" defer></script>
+
+    <script src="../static/scripts/tutor-classrooms.js" defer></script>
 </body>
 </html>

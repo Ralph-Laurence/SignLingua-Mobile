@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="currentpage" content="">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <link rel="stylesheet" href="../static/styles/classrooms.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+    
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <div class="w-100 h-100 d-flex flex-column align-items-center overflow-x-hidden">
+        
+        <!-- BANNER -->
+        <div class="upper-ribbon w-100 flex-0-1-auto">
+            <div class="banner w-100 position-relative">
+                <div class="bg-overlay color tutor"></div>
+                <div class="bg-overlay visual"></div>
+                <div class="w-100 px-4 py-3 fg-content position-absolute start-0 end-0">
+                    
+                    <div class="d-flex align-items-center w-100 mb-2">
+                        <div class="back-button-container w-25 me-auto">
+                            <button id="btn-back" class="btn btn-sm text-white text-decoration-none px-0 py-3">
+                                <i class="fa-solid fa-arrow-left me-2"></i>Back
+                            </button>
+                        </div>
+                        <h5 class="mx-auto flex-fill text-center text-white fw-500 mb-0">Classrooms</h5>
+                        <div class="w-25 ms-auto spacer"></div>
+                    </div>
+    
+                    <div class="w-100 p-3 text-14 text-white short-caption tutor">
+                        Classrooms allow you to host one-on-one video sessions with learners, offering them personalized learning and mentorship.
+                    </div>
+                </div>
+                <img src="../static/images/toon_art_classroom_1.png" alt="" class="position-absolute mt-3 top-0 end-0 toon">
+            </div>
+        </div>
+
+        <div class="w-100 dynamic-content pt-5 px-4">
+            
+            <div class="empty-classrooms-indicator w-100 flex-center">
+                <div class="d-flex align-items-center flex-column gap-3 w-75 opacity-80">
+                    <img src="../static/images/classroom_not_member_icn.png" class="w-60 h-60">
+                    <h6 class="text-muted text-center text-16">Hmm... You haven't created any classrooms yet. Create one now and add your learners—you can add more anytime.</h6>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+    <script src="../static/scripts/star_ratings_control.js" defer></script>
+    <script src="../static/scripts/tutor_classrooms.js" defer></script>
+
+    <!-- <script src="../static/scripts/components/warning_modal.js"></script> -->
+</body>
+</html>

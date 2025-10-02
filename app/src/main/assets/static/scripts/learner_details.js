@@ -19,6 +19,74 @@ $(document).ready(function()
         }
     });
 
+    $('#btn-confirm-request').on('click', function() {
+        if (window.LearnerDetailsJsBridge) {
+            showLoading('action');
+            window.LearnerDetailsJsBridge.onConfirmRequest();
+        }
+    });
+
+    $('#btn-decline-request').on('click', function()
+    {
+        let learnerName = $('#dynamic-name').text();
+        let promptMsg   = `Are you sure, you want to decline the hire request for learner <strong>${learnerName}</strong>? The learner won't be notified, and they can still reach out again later.`;
+
+        showConfirmPrompt(promptMsg, {
+            'onOK': function()
+            {
+                if (window.LearnerDetailsJsBridge)
+                {
+                    showLoading('action');
+                    window.LearnerDetailsJsBridge.onDeclineRequest();
+                }  
+            }
+        });
+    });
+
+    $('#btn-drop-learner').on('click', function()
+    {
+        let learnerName = $('#dynamic-name').text();
+        let promptMsg = `Are you sure you want to drop <strong>${learnerName}</strong> from your learners? The learner won't be notified, and they can still reach out again later.`;
+
+        showConfirmPrompt(promptMsg, {
+            'onOK': function()
+            {
+                if (window.LearnerDetailsJsBridge)
+                {
+                    showLoading('action');
+                    window.LearnerDetailsJsBridge.onDropLearner();
+                }  
+            }
+        });
+    });
+
+    $('#btn-add-learner').on('click', function()
+    {
+        if (window.LearnerDetailsJsBridge) {
+            showLoading('action');
+            window.LearnerDetailsJsBridge.onAddLearner();
+        }
+    });
+
+    $('#btn-cancel-request').on('click', function()
+    {
+        let learnerName = $('#dynamic-name').text();
+        let promptMsg = `Are you sure you want to cancel your request to add <strong>${learnerName}</strong> as one of your learners?`;
+
+        showConfirmPrompt(promptMsg, {
+            'okText': 'Yes',
+            'cancelText': 'No',
+            'onOK': function()
+            {
+                if (window.LearnerDetailsJsBridge)
+                {
+                    showLoading('action');
+                    window.LearnerDetailsJsBridge.onCancelRequest();
+                }  
+            }
+        });
+    });
+
     // renderDetails(sampleData);
 });
 
@@ -66,7 +134,13 @@ function renderDetails(json)
                 $('#btn-drop-learner').show();
                 break;
 
-            case "requested":
+            // Learner sent request to tutor
+            case "request_recieved":
+                $('#learner-request-controls').show();
+                break;
+
+            // Tutor sent request to learner
+            case "request_sent":
                 $('#btn-cancel-request').show();
                 break;
 
@@ -81,6 +155,39 @@ function renderDetails(json)
     // then hide it manually
     if (IS_FULLY_LOADED)
         hideLoading();
+}
+
+function handleRequestDeclined()
+{
+    $('#learner-request-controls').hide();
+    $('#btn-add-learner').show();
+}
+
+function handleRequestConfirmed()
+{
+    $('#learner-request-controls').hide();
+    $('#btn-drop-learner').show();
+}
+
+function handleRequestCanceled()
+{
+    // Cancelled is different from declined.
+    // Decline is called when learner sents the request.
+    // Canceled is called when tutor sents the request.
+    $('#booking-controls-container .btn').hide();
+    $('#btn-add-learner').show();
+}
+
+function handleLearnerDropped()
+{
+    $('#booking-controls-container .btn').hide();
+    $('#btn-add-learner').show();
+}
+
+function handleLearnerAdded()
+{
+    $('#booking-controls-container .btn').hide();
+    $('#btn-cancel-request').show();
 }
 
 function formatNumber(num)

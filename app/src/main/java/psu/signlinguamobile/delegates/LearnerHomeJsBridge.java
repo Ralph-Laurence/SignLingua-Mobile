@@ -9,7 +9,8 @@ public class LearnerHomeJsBridge
     {
         void onLogout();
         void onNavFindTutors();
-        void onNavClassrooms();
+        //void onNavClassrooms();
+        void onNavChat();
         void onNavMyTutors();
         void onNavMyProfile();
         void onNavScanner();
@@ -38,12 +39,20 @@ public class LearnerHomeJsBridge
         }
     }
 
+//    @JavascriptInterface
+//    public void onNavClassrooms()
+//    {
+//        if (listener != null)
+//        {
+//            listener.onNavClassrooms();
+//        }
+//    }
+
     @JavascriptInterface
-    public void onNavClassrooms()
+    public void onNavChat()
     {
-        if (listener != null)
-        {
-            listener.onNavClassrooms();
+        if (listener != null) {
+            listener.onNavChat();
         }
     }
 

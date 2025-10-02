@@ -102,21 +102,40 @@ public class TutorHomeActivity extends AppCompatActivity implements TutorHomeJsB
         });
     }
 
-    @Override
-    public void onNavClassrooms()
-    {
-        runOnUiThread(() -> {
-            Intent intent = new Intent(TutorHomeActivity.this, TutorClassroomsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
-    }
+//    @Override
+//    public void onNavClassrooms()
+//    {
+//        runOnUiThread(() -> {
+//            Intent intent = new Intent(TutorHomeActivity.this, TutorClassroomsActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        });
+//    }
+@Override
+public void onNavChat()
+{
+    runOnUiThread(() -> {
+        Intent intent = new Intent(TutorHomeActivity.this, ContactsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    });
+}
 
     @Override
     public void onNavMyProfile()
     {
         runOnUiThread(() -> {
             Intent intent = new Intent(TutorHomeActivity.this, TutorProfileAccountActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public void onNavHireRequests()
+    {
+        runOnUiThread(() -> {
+            Intent intent = new Intent(TutorHomeActivity.this, TutorHireRequestsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });

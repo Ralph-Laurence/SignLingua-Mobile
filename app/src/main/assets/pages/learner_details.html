@@ -85,8 +85,8 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content w-100 px-4 pb-5">
-            <h5 class="fw-600 w-100 px-4 text-center mb-1" id="dynamic-name">My Name</h5>
-            <p id="dynamic-username" class="w-100 mb-2 text-center">@username</p>
+            <h5 class="fw-600 w-100 px-4 text-center mb-1" id="dynamic-name"></h5>
+            <p id="dynamic-username" class="w-100 mb-2 text-center"></p>
             <p class="text-14 text-center text-muted w-100" style="display: none;" id="dynamic-bio"></p>
             <div class="button-wrapper mb-4 pt-2" id="booking-controls-container">
                 <button type="button" class="btn primary-button w-100" id="btn-add-learner" style="display: none;">
@@ -98,6 +98,18 @@
                 <button type="button" class="btn secondary-button w-100" id="btn-cancel-request" style="display: none;">
                     <i class="fas fa-user-xmark"></i>Cancel Request
                 </button>
+                
+                <div class="w-100" style="display: none" id="learner-request-controls">
+                    <h6 class="text-14 text-muted">Sent you a hire request</h6>
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                        <button type="button" class="btn primary-button w-100" id="btn-confirm-request">
+                            <i class="fas fa-check"></i>Confirm
+                        </button>
+                        <button type="button" class="btn secondary-button w-100" id="btn-decline-request">
+                            <i class="fas fa-close"></i>Decline
+                        </button>
+                    </div>
+                </div>
             </div>
             <!--
             ========================================
@@ -178,9 +190,8 @@
     <script src="../static/libraries/dompurify/purify.min.js" defer></script>
     <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
     <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
-    <script src="../static/scripts/star_ratings_control.js" defer></script>
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js" defer></script>
     <script src="../static/scripts/learner_details.js" defer></script>
-
-    <!-- <script src="../static/scripts/components/warning_modal.js"></script> -->
 </body>
 </html>

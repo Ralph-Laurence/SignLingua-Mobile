@@ -33,10 +33,17 @@ $(document).ready(() => {
         }
     });
     
-    $('#btn-nav-classrooms').on("click", function () {
+    // $('#btn-nav-classrooms').on("click", function () {
+
+    //     if (window.TutorHomeJsBridge) {
+    //         window.TutorHomeJsBridge.onNavClassrooms();
+    //     }
+    // });
+    
+    $('#btn-nav-chat').on("click", function () {
 
         if (window.TutorHomeJsBridge) {
-            window.TutorHomeJsBridge.onNavClassrooms();
+            window.TutorHomeJsBridge.onNavChat();
         }
     });
 
@@ -44,6 +51,13 @@ $(document).ready(() => {
     {
         if (window.TutorHomeJsBridge) {
             window.TutorHomeJsBridge.onNavMyProfile();
+        }
+    });
+
+    $('#btn-nav-hire-reqs').on('click', function()
+    {
+        if (window.TutorHomeJsBridge) {
+            window.TutorHomeJsBridge.onNavHireRequests();
         }
     });
 });

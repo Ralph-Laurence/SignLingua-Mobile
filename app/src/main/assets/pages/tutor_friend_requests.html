@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Used to identify what nav page are we in. This will be used on the dropdown. -->
+    <meta name="navpage" content="cert">
+
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/bottom_sheet.css">
+    <!-- <link rel="stylesheet" href="../static/styles/tutor_profile.css"> -->
+     <link rel="stylesheet" href="../static/styles/friends_view.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay page-load position-fixed start-0 end-0 top-0 bottom-0 w-100 h-100 z-3000">
+        <div class="loading-content w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div class="progress w-60 page-loader-progress">
+                <div class="progress-bar progress-bar-striped bg-primary-700 progress-bar-animated" role="progressbar"
+                    style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h6 class="text-white text-shadow loading-text mt-2">Loading...</h6>
+        </div>
+    </div>
+
+    <div class="main-layout w-100 h-100 d-flex flex-column">
+        <div class="ribbon-header flex-0-1-auto d-flex align-items-center w-100 px-3 mt-2 border-bottom">
+            <div class="back-button-container w-25 me-auto">
+                <button id="btn-back" class="btn btn-sm text-decoration-none px-0 py-3">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Back
+                </button>
+            </div>
+            <h6 class="mx-auto flex-fill text-center fw-500 mb-0">Hire Requests</h6>
+            <div class="w-25 ms-auto spacer"></div>
+        </div>
+        <div class="flex-1-1-auto overflow-x-hidden overflow-y-auto display-none" id="list-friend-requests">
+            <div class="row m-3">
+                <div class="col">
+                    <h6 class="my-1" id="total_requests">0 Requests</h6>
+                </div>
+                <div class="col text-end">
+                    <img src="../static/images/icn_hire_requests.png" height="28">
+                </div>
+            </div>
+            <div class="p-3 border bg-secondary-subtle text-14 mx-3 mt-3 mb-1">
+                <img src="../static/images/icn_info_circle_blue.png" class="me-1" width="24" height="24">
+                Tap on a learner to view their profile. Tap <span class="fw-bold text-dark">Confirm</span> to accept the request, or <span class="fw-bold text-dark">Delete</span> to decline.
+            </div>
+            <div class="main-content w-100">
+                <!-- DYNAMIC CONTENT HERE -->
+            </div>
+        </div>
+        <div class="flex-1-1-auto p-3 overflow-x-hidden overflow-y-auto display-none" id="tutor-on-empty-friend-requests">
+            <!-- <div class="search-container position-relative">
+                        <input type="text" class="form-control search-input" placeholder="Find people">
+                        <i class="fas fa-search search-icon"></i>
+                </div> -->
+            <div class="row mb-1">
+                <div class="col">
+                    <h6 class="my-1">0 Requests</h6>
+                </div>
+                <div class="col text-end">
+                    <img src="../static/images/icn_hire_requests.png" height="28">
+                </div>
+            </div>
+            
+            <p class="mb-3 w-75 text-14">Hmm... It looks like you haven't received any hiring requests yet.</p>
+
+            <div class="w-100 d-flex gap-2 mb-3">
+                <div class="left-content">
+                    <img src="../static/images/icn_info_circle_blue.png" height="24">
+                </div>
+                <div class="flex-fill text-14"><strong>Pro Tip:</strong> Head over to the <strong><i>"Find Learners"</i></strong> section and add learners from there.</div>
+            </div>
+
+            <button id="btn-find-learners" type="button" class="btn small-button primary-button w-100 px-3">
+                Find Learners
+                <i class="fas fa-chevron-right ms-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script" defer></script>
+    <script src="../static/libraries/jquery-ui-1.14.1/jquery-ui.min.js" defer></script>
+    <script src="../static/scripts/loader_overlay.js" defer></script>
+    <script src="../static/libraries/dompurify/purify.min.js" defer></script>
+    <script src="../static/libraries/popperjscore-2.9.2/popper.min.js" defer></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js" defer></script>
+
+    <script src="../static/scripts/components/warning_modal.js" defer></script>
+    <script src="../static/scripts/components/success_snackbar.js" defer></script>
+    <script src="../static/scripts/components/confirm_prompt_bottom_sheet.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_ribbon_header.js" defer></script>
+    <script src="../static/scripts/components/tutor_profile_nav.js" defer></script>
+
+    <script src="../static/scripts/tutor_hire_requests.js" defer></script>
+</body>
+
+</html>

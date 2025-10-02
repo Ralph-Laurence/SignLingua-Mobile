@@ -1,0 +1,54 @@
+.ribbon-header {
+    background: #ffb06b;
+    background: linear-gradient(299deg, rgba(255, 176, 107, 1) 0%, rgba(249, 99, 102, 1) 100%);
+    padding-top: 1rem;
+}
+
+
+.classroom-card {
+    position: relative;
+    background-color: #1C2033;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Add the image as a pseudo-element */
+.classroom-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    /* background-image: url('../images/classroom-leading-icn/B.jpg'); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right center;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.42; /* This now ONLY affects the image layer */
+}
+
+/* Ensure content sits above the image */
+.classroom-card .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+.classroom-card .btn 
+{
+    box-shadow: none !important;
+}
+
+
+.classroom-name
+{
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.classroom-code, .total-learners
+{
+    color: white;
+    font-size: 13px;
+    font-weight: normal;
+}

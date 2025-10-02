@@ -87,11 +87,21 @@ public class LearnerHomeActivity extends AppCompatActivity implements LearnerHom
         });
     }
 
+//    @Override
+//    public void onNavClassrooms()
+//    {
+//        runOnUiThread(() -> {
+//            Intent intent = new Intent(LearnerHomeActivity.this, LearnerClassroomsActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        });
+//    }
+
     @Override
-    public void onNavClassrooms()
+    public void onNavChat()
     {
         runOnUiThread(() -> {
-            Intent intent = new Intent(LearnerHomeActivity.this, LearnerClassroomsActivity.class);
+            Intent intent = new Intent(LearnerHomeActivity.this, ContactsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });

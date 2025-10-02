@@ -25,7 +25,6 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.gson.Gson;
 
 import java.lang.Object;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -43,6 +42,9 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
 
     private boolean m_checkAuth = true;
     private boolean m_useDarkStatusIcons = false;
+
+    private int m_webviewResource = R.id.webView;
+    private int m_layoutResource = R.layout.activity_common_web_layout;
 
     /**
      * Called before rendering the view
@@ -70,6 +72,16 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
      * */
     protected abstract void onDispose();
 
+    protected void setWebviewResource(int resId)
+    {
+        m_webviewResource = resId;
+    }
+
+    protected void setLayoutResource(int resId)
+    {
+        m_layoutResource = resId;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,7 +94,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
             checkAuth();
 
         // Use the common web view layout
-        setContentView(R.layout.activity_common_web_layout);
+        setContentView(m_layoutResource);
 
         // Remove the top padding, to achieve that "Overlay" status bar effect.
         // This will render the content underneath it.
@@ -156,7 +168,7 @@ public abstract class BaseWebViewActivity extends AppCompatActivity
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView()
     {
-        m_webView = findViewById(R.id.webView);
+        m_webView = findViewById(m_webviewResource);
         WebSettings webSettings = m_webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);

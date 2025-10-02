@@ -20,6 +20,15 @@
         android:theme="@style/Theme.SignLinguaMobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity android:name=".pages.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+        <activity android:name=".pages.ContactsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+        <activity android:name=".pages.TutorHireRequestsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
         <activity android:name=".pages.GlobalCrashHandler"
             android:exported="false"
             android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>

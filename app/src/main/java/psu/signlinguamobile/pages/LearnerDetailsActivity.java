@@ -1,112 +1,91 @@
 package psu.signlinguamobile.pages;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
-import android.webkit.ConsoleMessage;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
 
 import psu.signlinguamobile.R;
+import psu.signlinguamobile.api.apiresponse.CommonResponse;
+import psu.signlinguamobile.api.apiservice.BookingManagementApiService;
 import psu.signlinguamobile.api.apiservice.LearnerManagementApiService;
 import psu.signlinguamobile.api.client.ApiClient;
 import psu.signlinguamobile.delegates.LearnerDetailsJsBridge;
 import psu.signlinguamobile.api.apiresponse.LearnerDetailsResponse;
+import psu.signlinguamobile.utilities.HttpCodes;
+import psu.signlinguamobile.utilities.UXMessages;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LearnerDetailsActivity extends AppCompatActivity implements LearnerDetailsJsBridge.LearnerDetailsJsBridgeListener
+public class LearnerDetailsActivity
+        extends BaseWebViewActivity
+        implements LearnerDetailsJsBridge.LearnerDetailsJsBridgeListener
 {
-    private WebView m_webView;
     private LearnerManagementApiService learnerMgtApiService;
-    private String lastLoadedUrl = "";
-    private final String JS_BRIDGE_NAME = "LearnerDetailsJsBridge";
+    private BookingManagementApiService bookingManagementApiService;
+    private String learnerId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public void onGoBack()
     {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_common_web_layout);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        goBack();
+    }
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        WindowInsetsControllerCompat insetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (insetsController != null) {
-            insetsController.setAppearanceLightStatusBars(false); // or false for light icons
-        }
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true)
-        {
-            @Override
-            public void handleOnBackPressed()
-            {
-                onGoBack();
-            }
-        });
-
-        m_webView = findViewById(R.id.webView);
-        WebSettings webSettings = m_webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setDomStorageEnabled(true);
-        m_webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                android.util.Log.d("WebView", consoleMessage.message());
-                return true;
-            }
-        });
-
-        m_webView.setWebViewClient(new WebViewClient()
-        {
-            @Override
-            public void onPageFinished(WebView view, String url)
-            {
-                // Prevent duplicate calls:
-                // Prevents extra API calls by tracking the last loaded URL.
-                // Ensures onPageFinished() only runs once per unique page load.
-                // Works smoothly with redirects or dynamic content updates in WebView.
-                if (!url.equals(lastLoadedUrl))
-                {
-                    lastLoadedUrl = url;
-                    Log.d("WEBVIEW", "Page fully loaded: " + url);
-
-                    // Load initial tutors once
-                    runOnUiThread(() -> fetchDetails());
-                }
-            }
-        });
-
-        // Add the js bridge defined in a separate file.
-        m_webView.addJavascriptInterface(new LearnerDetailsJsBridge(this), JS_BRIDGE_NAME);
-
-        m_webView.loadUrl("file:///android_asset/pages/learner_details.html");
+    @Override
+    protected void onInitialize()
+    {
+        learnerId = getIntent().getStringExtra("learnerId");
 
         // Initialize Retrofit API Service
         learnerMgtApiService = ApiClient.getClient(this, true).create(LearnerManagementApiService.class);
+        bookingManagementApiService = ApiClient.getClient(this, true).create(BookingManagementApiService.class);
+
+        registerJsBridge(new LearnerDetailsJsBridge(this), JS_BRIDGE_NAME);
+        renderView("learner_details");
+    }
+
+    @Override
+    protected void onBackKey()
+    {
+        goBack();
+    }
+
+    @Override
+    protected void onViewLoaded()
+    {
+        fetchDetails();
+    }
+
+    @Override
+    protected void onDispose()
+    {
+        this.unregisterJsBridge(JS_BRIDGE_NAME);
+    }
+
+    private void goBack()
+    {
+        Intent intent = null;
+
+        String launchedFrom = getIntent().getStringExtra("launchedFrom");
+
+        if (launchedFrom.equals("myLearners"))
+            intent = new Intent(LearnerDetailsActivity.this, MyLearnersActivity.class);
+        else if (launchedFrom.equals("findLearners"))
+            intent = new Intent(LearnerDetailsActivity.this, FindLearnersActivity.class);
+        else if (launchedFrom.equals("hireRequests"))
+            intent = new Intent(LearnerDetailsActivity.this, TutorHireRequestsActivity.class);
+
+        if (intent != null)
+        {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     private void fetchDetails()
@@ -120,65 +99,308 @@ public class LearnerDetailsActivity extends AppCompatActivity implements Learner
             @Override
             public void onResponse(Call<LearnerDetailsResponse> call, Response<LearnerDetailsResponse> response)
             {
-                if (!response.isSuccessful() || response.body() == null) {
+                Log.d("MINE", String.valueOf(response.code()));
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful() || response.body() == null)
+                {
                     Log.e("RETROFIT_ERROR", "API failed with code: " + response.code());
+                    alert(UXMessages.ERR_TECHNICAL, "Failure", (d,i) -> goBack());
                     return;
                 }
 
-                try {
-                    // Convert the parsed object back to JSON safely
-                    Gson gson = new Gson();
-                    String jsonResponse = escapeJsonForWebView(gson.toJson(response.body()));
-
-                    Log.d("MINE", jsonResponse);
-                    // Pass JSON string safely to WebView
-                    m_webView.evaluateJavascript("javascript:renderDetails(`" + jsonResponse + "`);", null);
+                try
+                {
+                    String jsonResponse = encodeJson(response.body());
+                    bridgeCall_execJavascriptFunction("renderDetails", jsonResponse);
 
                 } catch (Exception e) {
-                    Log.e("RETROFIT_ERROR", "Error reading response body: " + e.getMessage());
+                    launch(GlobalCrashHandler.class);
                 }
             }
 
             @Override
             public void onFailure(Call<LearnerDetailsResponse> call, Throwable t)
             {
-                Log.e("API_ERROR", "Failed to fetch tutors: " + t.getMessage());
-            }
-        });
-    }
-
-    private String escapeJsonForWebView(String json) {
-        return json.replace("\\", "\\\\").replace("\"", "\\\"");
-    }
-
-    @Override
-    public void onGoBack()
-    {
-        runOnUiThread(() -> {
-            Intent intent = null;
-
-            String launchedFrom = getIntent().getStringExtra("launchedFrom");
-
-            if (launchedFrom.equals("myLearners"))
-                intent = new Intent(LearnerDetailsActivity.this, MyLearnersActivity.class);
-            else if (launchedFrom.equals("findLearners"))
-                intent = new Intent(LearnerDetailsActivity.this, FindLearnersActivity.class);
-
-            if (intent != null)
-            {
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                alert(UXMessages.ERR_NETWORK, "Network Error", (d,i) -> goBack());
             }
         });
     }
 
     @Override
-    protected void onDestroy()
+    public void onConfirmRequest()
     {
-        super.onDestroy();
-        if (m_webView != null)
+        bookingManagementApiService.confirmHiringRequest(learnerId).enqueue(new Callback<>()
         {
-            m_webView.removeJavascriptInterface(JS_BRIDGE_NAME); // Prevents leaks
-        }
+            @Override
+            public void onResponse(Call<CommonResponse<Void>> call, Response<CommonResponse<Void>> response)
+            {
+                bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful())
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string(); // Only call .string() once
+                        Log.d("MINE", "Raw error: " + errorJson);
+
+                        Gson gson = new Gson();
+                        CommonResponse<Void> errorResponse = gson.fromJson(errorJson, new TypeToken<CommonResponse<Void>>()
+                        {
+                        }.getType());
+
+                        if (response.code() == HttpCodes.VALIDATION_ERROR)
+                            bridgeCall_alertWarn(errorResponse.getMessage());
+
+                        else
+                            bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("MINE", "Error parsing response", e);
+                        bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+                    }
+
+                    return;
+                }
+
+                bridgeCall_execJavascriptFunction("handleRequestConfirmed");
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<Void>> call, Throwable t)
+            {
+                bridgeCall_alertWarn(UXMessages.ERR_NETWORK);
+            }
+        });
+    }
+
+    @Override
+    public void onDeclineRequest()
+    {
+        bookingManagementApiService.declineHiringRequest(learnerId).enqueue(new Callback<>()
+        {
+            @Override
+            public void onResponse(Call<CommonResponse<Void>> call, Response<CommonResponse<Void>> response)
+            {
+                bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful())
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string(); // Only call .string() once
+                        Log.d("MINE", "Raw error: " + errorJson);
+
+                        Gson gson = new Gson();
+                        CommonResponse<Void> errorResponse = gson.fromJson(errorJson, new TypeToken<CommonResponse<Void>>(){}.getType());
+
+                        if (response.code() == HttpCodes.VALIDATION_ERROR)
+                            bridgeCall_alertWarn(errorResponse.getMessage());
+
+                        else
+                            bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("MINE", "Error parsing response", e);
+                        bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+                    }
+
+                    return;
+                }
+
+                bridgeCall_execJavascriptFunction("handleRequestDeclined");
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<Void>> call, Throwable t)
+            {
+                bridgeCall_alertWarn(UXMessages.ERR_NETWORK);
+            }
+        });
+    }
+
+    @Override
+    public void onDropLearner()
+    {
+        bookingManagementApiService.dropLearner(learnerId).enqueue(new Callback<>()
+        {
+            @Override
+            public void onResponse(Call<CommonResponse<Void>> call, Response<CommonResponse<Void>> response)
+            {
+                bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful())
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string(); // Only call .string() once
+                        Log.d("MINE", "Raw error: " + errorJson);
+
+                        Gson gson = new Gson();
+                        CommonResponse<Void> errorResponse = gson.fromJson(errorJson, new TypeToken<CommonResponse<Void>>(){}.getType());
+
+                        if (response.code() == HttpCodes.VALIDATION_ERROR)
+                            bridgeCall_alertWarn(errorResponse.getMessage());
+
+                        else
+                            bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("MINE", "Error parsing response", e);
+                        bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+                    }
+
+                    return;
+                }
+
+                bridgeCall_execJavascriptFunction("handleLearnerDropped");
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<Void>> call, Throwable t)
+            {
+                bridgeCall_alertWarn(UXMessages.ERR_NETWORK);
+            }
+        });
+    }
+
+    @Override
+    public void onAddLearner()
+    {
+        bookingManagementApiService.addLearner(learnerId).enqueue(new Callback<>()
+        {
+            @Override
+            public void onResponse(Call<CommonResponse<Void>> call, Response<CommonResponse<Void>> response)
+            {
+                bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful())
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string(); // Only call .string() once
+                        Log.d("MINE", "Raw error: " + errorJson);
+
+                        Gson gson = new Gson();
+                        CommonResponse<Void> errorResponse = gson.fromJson(errorJson, new TypeToken<CommonResponse<Void>>(){}.getType());
+
+                        if (response.code() == HttpCodes.VALIDATION_ERROR
+                         || response.code() == HttpCodes.CONFLICT)
+                            bridgeCall_alertWarn(errorResponse.getMessage());
+                        else
+                            bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("MINE", "Error parsing response", e);
+                        bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+                    }
+
+                    return;
+                }
+
+                bridgeCall_execJavascriptFunction("handleLearnerAdded");
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<Void>> call, Throwable t)
+            {
+                bridgeCall_alertWarn(UXMessages.ERR_NETWORK);
+            }
+        });
+    }
+
+    @Override
+    public void onCancelRequest()
+    {
+        bookingManagementApiService.cancelRequest(learnerId).enqueue(new Callback<>()
+        {
+            @Override
+            public void onResponse(Call<CommonResponse<Void>> call, Response<CommonResponse<Void>> response)
+            {
+                bridgeCall_hideWebViewLoadingOverlay();
+
+                Log.wtf("MINE", "WTF -> " + response.code());
+
+                if (!getVerificationMw().IsAllowed(response))
+                    return;
+
+                if (!response.isSuccessful())
+                {
+                    try
+                    {
+                        String errorJson = response.errorBody().string(); // Only call .string() once
+                        Log.d("MINE", "Raw error: " + errorJson);
+
+                        Gson gson = new Gson();
+                        CommonResponse<Void> errorResponse = gson.fromJson(errorJson, new TypeToken<CommonResponse<Void>>(){}.getType());
+
+                        if (response.code() == HttpCodes.VALIDATION_ERROR)
+                            bridgeCall_alertWarn(errorResponse.getMessage());
+
+                        else
+                            bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("MINE", "Error parsing response", e);
+                        bridgeCall_alertWarn(UXMessages.ERR_TECHNICAL);
+                    }
+
+                    return;
+                }
+
+                bridgeCall_execJavascriptFunction("handleRequestCanceled");
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<Void>> call, Throwable t)
+            {
+                bridgeCall_alertWarn(UXMessages.ERR_NETWORK);
+            }
+        });
+    }
+
+    private void alert(String message, String title, DialogInterface.OnClickListener onOK)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle(title.isEmpty() ? getString(R.string.app_name) : title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", onOK);
+        builder.setIcon(R.drawable.app_logo_xl);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

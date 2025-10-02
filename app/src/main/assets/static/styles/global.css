@@ -393,12 +393,22 @@ div.ui-selectmenu-open {
     justify-content: end;
 }
 
+/* .flex-0-1-auto {
+    flex: 0 1 auto;
+}
+.flex-1-1-auto {
+    flex: 1 1 auto;
+} */
 .flex-0-1-auto {
     flex: 0 1 auto;
 }
 .flex-1-1-auto {
     flex: 1 1 auto;
 }
+.flex-flow-column {
+    flex-flow: column;
+}
+
 .overflow-y-auto {
     overflow-y:auto !important
 }
