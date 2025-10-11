@@ -3,10 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- Feature requirements -->
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.front" />
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-feature android:name="android.hardware.microphone" />
 
     <application
         android:allowBackup="true"
@@ -20,25 +28,49 @@
         android:theme="@style/Theme.SignLinguaMobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity android:name=".pages.ChatActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
-        <activity android:name=".pages.ContactsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
-        <activity android:name=".pages.TutorHireRequestsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
-        <activity android:name=".pages.GlobalCrashHandler"
-            android:exported="false"
-            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
-        <activity android:name=".pages.UnderModReviewActivity"
+        <activity
+            android:name=".pages.CallEndedActivity"
             android:exported="false"
             android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
         <activity
+            android:name=".videocall.VideoCallMain"
+            android:exported="true" />
+        <activity
+            android:name=".videocall.VideoCallActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".pages.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.ContactsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.TutorHireRequestsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.GlobalCrashHandler"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
+            android:name=".pages.UnderModReviewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
+        <activity
             android:name=".pages.CaptureIDMainActivity"
             android:exported="false"
-            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar"/>
+            android:theme="@style/Theme.SignLinguaMobile.TransparentStatusBar" />
         <activity
             android:name=".pages.CaptureIDBoardingActivity"
             android:exported="false"

@@ -1,39 +1,6 @@
-// const data = {
-// 	"status": 200,
-// 	"message": "",
-// 	"content": {
-// 		"currentUser": "Tarzan Cruz",
-// 		"authToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtV01vSk1FNFFqIiwibmFtZSI6IlRhcnphbiBDcnV6IiwiaWF0IjoxNzU5Mzc4NDgzLCJleHAiOjE3NTkzODIwODN9.YLXNITxB5_xmr8oUbld2XvdrEtLtxhXR3Ac1WX87Cew",
-// 		"contactName": "Nika David",
-// 		"contactPhoto": "http://localhost:8000/storage/uploads/profiles/1737732826.png",
-// 		"contactId": "dm2EDdEy5Y",
-// 		"senderId": "mWMoJME4Qj",
-// 		"messages": [
-// 			{
-// 				"from": "me",
-// 				"body": "<img src=\"http://localhost:8000/assets/lib/jquery-emojiarea/jquery-emojiarea/packs/custom/beaming_face_with_smiling_eyes.png\" alt=\":beaming_face_with_smiling_eyes:\" class=\"emoji-img\"> Hey girl i'm waiting on yah. I'm waiting on yah, come one and let me sneak you out",
-// 				"date": "Fri AT 12:04 PM Sep 26, 2025"
-// 			},
-// 			{
-// 				"from": "contact",
-// 				"body": "And have a celebration a celebration\r\nThe music up the windows down<img src=\"http://localhost:8000/assets/lib/jquery-emojiarea/jquery-emojiarea/packs/custom/purple_heart.png\" alt=\":purple_heart:\" class=\"emoji-img\"> <img src=\"http://localhost:8000/assets/lib/jquery-emojiarea/jquery-emojiarea/packs/custom/rolling_on_the_floor_laughing.png\" alt=\":rolling_on_the_floor_laughing:\" class=\"emoji-img\">",
-// 				"date": ""
-// 			},
-// 			{
-// 				"from": "me",
-// 				"body": "Yeah we'll be doing what we do,\r\nJust pretending that we're cool and we know it too (know it too).\r\nYeah, we'll keep doing what we do\r\nJust pretending that we're cool so tonight...",
-// 				"date": "Thu AT 12:13 PM Oct 02, 2025"
-// 			},
-// 			{
-// 				"from": "contact",
-// 				"body": "Let's go crazy, crazy, crazy 'til we see the sun\r\nI know we only met, but let's pretend it's love <img src=\"http://localhost:8000/assets/lib/jquery-emojiarea/jquery-emojiarea/packs/custom/blue_heart.png\" alt=\":blue_heart:\" class=\"emoji-img\">",
-// 				"date": ""
-// 			}
-// 		]
-// 	}
-// };
-
 let scrollContainer;
+const STATE_DISABLED = 1;
+const STATE_ENABLE = 0;
 
 $(document).ready(() => {
 
@@ -42,7 +9,7 @@ $(document).ready(() => {
         history.pushState(null, "", window.location.href);
     };
 
-    // renderDetails(data)
+    $('.btn-send').on('click', sendMessage);
 
     var $wysiwyg = $('.chat-textarea').emojiarea({
         wysiwyg: true,
@@ -56,30 +23,6 @@ $(document).ready(() => {
 	});
 	$wysiwyg.trigger('change');
 
-    // $(document).on('input blur', '.emoji-wysiwyg-editor', function () {
-    //     const $el = $(this);
-    
-    //     // Step 1: Get raw HTML and sanitize tags
-    //     const dirtyHtml = $el.html();
-    //     const cleanHtml = DOMPurify.sanitize(dirtyHtml, {
-    //         ALLOWED_TAGS: ['img', 'div', 'h6', 'button'],
-    //         ALLOWED_ATTR: ['src', 'alt', 'class']
-    //     });
-    
-    //     // Step 2: Strip Unicode emojis from the sanitized HTML's text content
-    //     const temp = $('<div>').html(cleanHtml);
-    //     const strippedText = stripUnicodeEmojis(temp.text());
-    
-    //     // Step 3: Replace contenteditable with clean text only
-    //     $el.html(strippedText);
-    
-    //     // Optional: Restore caret
-    //     placeCaretAtEnd($el[0]);
-    
-    //     // Step 4: Update placeholder logic
-    //     updatePlaceholder($el);
-    // });   
-
     $(document).on('input blur', '.emoji-wysiwyg-editor', function () {
         const el = this;
     
@@ -90,26 +33,6 @@ $(document).ready(() => {
 
     const btnScrollDown = $('.btn-scroll-latest');
     scrollContainer = document.querySelector('.messenger-convbox');
-
-    // scrollContainer.addEventListener('scroll', () => {
-    //     const scrollTop     = scrollContainer.scrollTop;
-    //     const scrollHeight  = scrollContainer.scrollHeight;
-    //     const clientHeight  = scrollContainer.clientHeight;
-
-    //     const scrollBottom  = scrollHeight - scrollTop - clientHeight;
-    //     // const threshold     = scrollHeight * 0.25; // 2/8 = 25% <-- Threshold too high above
-    //     const threshold     = scrollHeight * 0.06; // 2/30 = 6%
-
-    //     if (scrollBottom > threshold)// && shouldShowScrollDownButton(scrollContainer))
-    //     {
-    //         // When user scrolls up show the "scroll down the latest message" button
-    //         btnScrollDown.show();
-    //     }
-    //     else
-    //     {
-    //         btnScrollDown.hide();
-    //     }
-    // });
 
     scrollContainer.addEventListener('scroll', () => {
         const scrollTop     = scrollContainer.scrollTop;
@@ -127,32 +50,47 @@ $(document).ready(() => {
         } else {
             btnScrollDown.hide();
         }
+
+        // const scrollBottom  = scrollHeight - scrollTop - clientHeight;
+        // const threshold     = scrollHeight * 0.25; // 2/8 = 25% <-- Threshold too high above
+        // const threshold     = scrollHeight * 0.06; // 2/30 = 6%
     });    
 
     btnScrollDown.on('click', scrollConvoToBottom);
 
     window.addEventListener('resize', () => {
         scrollContainer.dispatchEvent(new Event('scroll'));
-    });    
+    });   
     
-    // newMessageObserver.observe(scrollContainer, { childList: true, subtree: true });
+    $('#btn-call').on('click', function() {
 
+        if (window.ChatJsBridge?.onInitiateCall)
+            window.ChatJsBridge.onInitiateCall();
+    });
 });
 
-function supportsUnicodePropertyEscapes() {
-    try {
+function supportsUnicodePropertyEscapes()
+{
+    try
+    {
         new RegExp('\\p{Emoji_Presentation}', 'u');
         return true;
-    } catch (e) {
+    }
+    catch (e)
+    {
         return false;
     }
 }
 
 // Remove system level emojies
-function stripUnicodeEmojis(text) {
-    if (supportsUnicodePropertyEscapes()) {
+function stripUnicodeEmojis(text)
+{
+    if (supportsUnicodePropertyEscapes())
+    {
         return text.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}\uFE0F\u200D]/gu, '');
-    } else {
+    }
+    else
+    {
         return text.replace(
             /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD800-\uDFFF]|\uFE0F|\u200D|[\u1F000-\u1FAFF])/g,
             ''
@@ -160,24 +98,22 @@ function stripUnicodeEmojis(text) {
     }
 }
 
-function sanitizeEmojiEditor(el) {
+function sanitizeEmojiEditor(el)
+{
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
 
-    while (walker.nextNode()) {
+    while (walker.nextNode())
+    {
         const node = walker.currentNode;
         const clean = stripUnicodeEmojis(node.textContent);
 
         // Also remove invisible fragments like ZWJ and variation selectors
         const cleaned = clean.replace(/[\u200D\uFE0F]/g, '');
-            //.replace(/[\u200D\uFE0F]/g, '')
-            //.replace(/\u00A0/g, ' '); // Normalize NBSP to regular space
     
-        if (cleaned !== node.textContent) {
+        if (cleaned !== node.textContent)
             node.textContent = cleaned;
-        }
     }
 }
-
 
 function shouldShowScrollDownButton(scrollContainer)
 {
@@ -212,13 +148,6 @@ function renderDetails(data)
 
         if ('messages' in obj && obj.messages.length > 0)
         {
-            // convbox.empty();
-
-            // for (let i = 0; i < 20; i++)
-            // {
-                
-            // }
-
             obj.messages.forEach(item => {
 
                 if (item.date.trim() !== '')
@@ -235,48 +164,79 @@ function renderDetails(data)
         }
 
         scrollConvoToBottom();
-
-        // if (scrollContainer === undefined)
-        //     scrollContainer = document.querySelector('.messenger-convbox');
-
-        // scrollContainer.dispatchEvent(new Event('scroll'));
     }
     catch (e)
     {
-        console.log(e)
-        let err = 'Sorry, we encountered a technical issue and had to exit.';
-
-        AlertWarn(err, 'Critical Error', {
-            'onOK': function()
-            {
-                if (window.ChatJsBridge)
-                    window.ChatJsBridge.onGoBack();
-            }
-        });
+        notifyCriticalError();
     }
 
     if (IS_FULLY_LOADED)
         hideLoading();
 }
 
+function notifyCriticalError(errMsg = '')
+{
+    const fallbackMsg = 'Sorry, we encountered a technical issue and had to exit.';
+    const err = errMsg.trim() !== '' ? errMsg : fallbackMsg;
+
+    AlertWarn(err, 'Critical Error', {
+        'onOK': function()
+        {
+            if (window.ChatJsBridge?.onGoBack)
+                window.ChatJsBridge.onGoBack();
+        }
+    });
+
+    /**
+    If you want to be extra cautious (e.g., in case onGoBack exists but isn’t callable), you could do:
+
+    if (typeof window.ChatJsBridge?.onGoBack === 'function') {
+        window.ChatJsBridge.onGoBack();
+    }
+    */
+}
+
 function scrollConvoToBottom()
 {
     convbox = document.querySelector('.messenger-convbox');
-    if (convbox) {
+
+    if (convbox)
         convbox.scrollTop = convbox.scrollHeight;
-    }
 }
 //
 //=======================================//
 //      Used when sending message        //
 //=======================================//
 //
+// function extractShortcodesFromHtml(html)
+// {
+//     const container = document.createElement('div');
+//     container.innerHTML = html;
+
+//     // Replace all <img> tags with their alt shortcodes
+//     const images = container.querySelectorAll('img');
+
+//     for (const img of images)
+//     {
+//         const shortcode = img.getAttribute('alt') || '';
+//         const textNode = document.createTextNode(shortcode);
+//         img.parentNode.replaceChild(textNode, img);
+//     }
+
+//     // Remove zero-width characters and trim
+//     return container.textContent.replace(/\u200B/g, '').trim();
+// }
+
 function extractShortcodesFromHtml(html)
 {
-    const container = document.createElement('div');
-    container.innerHTML = html;
+    const cleanHtml = DOMPurify.sanitize(html, {
+        ALLOWED_TAGS: ['img', 'div', 'br', 'span'], // allow emoji containers
+        ALLOWED_ATTR: ['alt', 'src', 'class']       // keep emoji metadata
+    });
 
-    // Replace all <img> tags with their alt shortcodes
+    const container = document.createElement('div');
+    container.innerHTML = cleanHtml;
+
     const images = container.querySelectorAll('img');
 
     for (const img of images)
@@ -309,8 +269,16 @@ function renderEmojis(text)
     });
 }
 
-function enqueueMessage(fromSender, message)
+function enqueueMessage(payload)
 {
+    if (typeof payload !== 'string')
+    {
+        console.log("Invalid chat message payload received.");
+        return;
+    }
+
+    const obj = JSON.parse(payload);
+    const { fromSender, message } = obj;
     const convbox = $('.messenger-convbox');
 
     let from = '';
@@ -332,6 +300,8 @@ function enqueueMessage(fromSender, message)
 
     // Step 4: Append to chat log
     convbox.append(template);
+
+    scrollConvoToBottom();
 }
 
 function updatePlaceholder($el)
@@ -354,4 +324,71 @@ function clearEditor()
 
     // Trigger input to re-run placeholder logic
     editor.trigger('input');
+}
+
+async function sendMessage()
+{
+    const rawHtml = document.querySelector('.emoji-wysiwyg-editor').innerHTML;
+    let message = extractShortcodesFromHtml(rawHtml);
+    
+    if (message.length > 2000)
+    {
+        AlertWarn("Your message is too long. Try splitting it.", 'Send Failed');
+        return;
+    }    
+
+    if (window.ChatJsBridge)
+    {
+        window.ChatJsBridge.onCaptureMessage(message);
+        clearEditor();
+    }
+}
+
+function setMessageControlsState(state)
+{
+    let sendBtn  = $('.btn-send');
+    let callBtn  = $('#btn-call');
+    let btnEmoji = $('#btn-emoji-picker');
+    let editor   = $('.emoji-wysiwyg-editor');
+
+    switch (state)
+    {
+        case STATE_ENABLE:
+            
+            // Throttle enabling...
+            setTimeout(() => {
+                callBtn.prop('disabled', false);
+                sendBtn.prop('disabled', false);
+                btnEmoji.prop('disabled', false);
+                editor.prop('contenteditable', true);  
+            }, 800);
+
+            break;
+
+        case STATE_DISABLED:
+            callBtn.prop('disabled', true);
+            sendBtn.prop('disabled', true);
+            btnEmoji.prop('disabled', true);
+            editor.prop('contenteditable', false);  
+            break;
+    }
+}
+
+function enableControls()
+{
+    setMessageControlsState(STATE_ENABLE)
+}
+function disableControls()
+{
+    setMessageControlsState(STATE_DISABLED)
+}
+
+function showIncomingCallRinger()
+{
+    $('#incoming-call-ringer').show();
+}
+
+function hideIncomingCallRinger()
+{
+    $('#incoming-call-ringer').hide();
 }

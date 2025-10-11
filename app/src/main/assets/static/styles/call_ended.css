@@ -1,0 +1,37 @@
+.contact-image-wrapper
+{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+}
+
+#contact-image
+{
+    width: 100%;
+    height: 100%;
+}
+
+#btn-call-again
+{
+    background-color: #67BF3D;
+}
+
+#btn-close
+{
+    background-color: #607D8B;
+}
+
+#endcall-controls .btn
+{
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+    font-size: 24px;
+    border-radius: 3rem;
+}

@@ -26,4 +26,13 @@ public class ChatConvResponse
 
     @SerializedName("senderId")
     private String senderId;
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public String getSenderId()
+    {
+        return senderId;
+    }
 }

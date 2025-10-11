@@ -11,6 +11,7 @@ public class Constants
         public static final String USER_ID = "user_id";
         public static final String USER_DETAILS = "user_details";
         public static final String CAMERA_PERMISSION_DENIALS = "camera_permission_denials";
+        public static final String MIC_PERMISSION_DENIALS = "mic_permission_denials";
     }
 
     public static class ApiRoutes

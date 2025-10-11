@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BUTTON BACKGROUND -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#C5CAE9" />
+        </shape>
+    </item>
+
+    <!-- BUTTON ICON -->
+    <item
+        android:drawable="@drawable/btn_icn_on_cam"
+        android:top="80dp"
+        android:left="80dp"
+        android:bottom="80dp"
+        android:right="80dp"/>
+
+</layer-list>

@@ -8,8 +8,8 @@ public class ChatJsBridge
     {
         String JS_BRIDGE_NAME = "ChatJsBridge";
         void onGoBack();
-//        void onProfileLink();
-//        void onContactItemSelected(String contactId);
+        void onCaptureMessage(String message);
+        void onInitiateCall();
     }
 
     private final ChatJsBridge.ChatJsBridgeListener listener;
@@ -26,12 +26,19 @@ public class ChatJsBridge
             listener.onGoBack();
         }
     }
-//
-//    @JavascriptInterface
-//    public void onContactItemSelected(String contactId)
-//    {
-//        if (listener != null) {
-//            listener.onContactItemSelected(contactId);
-//        }
-//    }
+
+    @JavascriptInterface
+    public void onCaptureMessage(String message)
+    {
+        if (listener != null) {
+            listener.onCaptureMessage(message);
+        }
+    }
+
+    @JavascriptInterface
+    public void onInitiateCall()
+    {
+        if (listener != null)
+            listener.onInitiateCall();
+    }
 }

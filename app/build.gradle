@@ -47,19 +47,25 @@ dependencies {
     implementation libs.lifecycle.viewmodel.ktx
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
-//    implementation 'io.github.webrtc-sdk:android:125.6422.06.1'
+    implementation("io.github.webrtc-sdk:android:125.6422.06.1") {
+        exclude group: 'com.squareup.okhttp3'
+        exclude group: 'org.json'
+    }
+    // implementation 'com.github.webrtc-sdk:android:125.6422.06.1'
     implementation project(":ucrop")
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'org.mozilla.geckoview:geckoview:138.0.20250505124357'
+    // implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+    // implementation 'org.mozilla.geckoview:geckoview:138.0.20250505124357'
     implementation("com.koushikdutta.async:androidasync:3.1.0")
     implementation("org.nanohttpd:nanohttpd:2.3.1")
     implementation("androidx.camera:camera-camera2:1.4.1")
     implementation("androidx.camera:camera-core:1.4.1")
     implementation("androidx.camera:camera-view:1.4.1")
     implementation("androidx.camera:camera-lifecycle:1.4.1")
+    implementation 'com.microsoft.signalr:signalr:7.0.0'
     implementation libs.activity
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

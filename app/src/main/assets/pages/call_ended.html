@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/libraries/bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/libraries/fontawesome6.7.2/css/solid.min.css">
+    <link rel="stylesheet" href="../static/fonts/inter.css">
+    <link rel="stylesheet" href="../static/styles/global.css">
+    <link rel="stylesheet" href="../static/styles/call_ended.css">
+    <link rel="icon" href="data:," />
+</head>
+
+<body class="bg-dark">
+
+    <div class="flex-center flex-column w-100 h-100">
+
+        <div class="contact-image-wrapper">
+            <img src="../static/images/default_avatar.png" id="contact-image">
+        </div>
+
+        <h6 class="text-white my-4">Call Ended</h6>
+
+        <h6 id="call-duration" class="text-white opacity-40 mb-5">00:00</h6>
+
+        <div id="endcall-controls" class="d-flex align-items-center justify-content-evenly w-100 pt-5">
+
+            <div class="d-flex flex-column align-items-center gap-2">
+                <button id="btn-call-again" class="btn flex-center">
+                    <i class="fas fa-phone"></i>
+                </button>
+                <h6 class="m-0 text-white text-14">Call Again</h6>
+            </div>
+
+            <div class="d-flex flex-column align-items-center gap-2">
+                <button id="btn-close" class="btn flex-center">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h6 class="m-0 text-white text-14">Close</h6>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../static/libraries/jquery-3.7.1/jquery-3.7.1.min.js" id="jquery-script"></script>
+    <script src="../static/libraries/bootstrap5/bootstrap.min.js"></script>
+    <script src="../static/scripts/end-call.js"></script>
+</body>
+
+</html>
